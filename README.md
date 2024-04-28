@@ -42,16 +42,13 @@ Nhớ sửa lại `<JavaFX_lib_path>`. Ví dụ: `path/to/java/javafx-sdk-22.0.1
 
 ```
 Electrical circuit simulator
-├── bin
-└── src
+├── src
     ├── app
     ├── gui
     ├── models
     └── resources
 
 ```
-
-`/bin`: lưu trữ các file java biên dịch
 
 `/src`: source code của dự án
 
