@@ -19,6 +19,8 @@ Check task trên [Trello](https://trello.com/b/PDJhYNcV/oop-project), khi đẩy
 
 Có thể đọc qua bài để hiểu thêm về pr: https://viblo.asia/p/tao-pull-request-dung-cach-bWrZnwkrlxw
 
+Hiểu hơn về conflict để tránh khi làm việc: https://topdev.vn/blog/cach-xu-ly-conflict-khi-git-merge
+
 ## Cấu hình
 
 Với ai dùng vscode thì tạo file `launch.json` ở trong folder `.vscode`
