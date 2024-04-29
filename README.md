@@ -17,6 +17,8 @@ Check task trên [Trello](https://trello.com/b/PDJhYNcV/oop-project), khi đẩy
 
 **Tuyệt đối không được đẩy code lên nhánh master.**
 
+Có thể đọc qua bài để hiểu thêm về pr: https://viblo.asia/p/tao-pull-request-dung-cach-bWrZnwkrlxw
+
 ## Cấu hình
 
 Với ai dùng vscode thì tạo file `launch.json` ở trong folder `.vscode`
