@@ -3,15 +3,15 @@
 ## Danh sách thành viên
 
 - 20220072 - Đoàn Tiến Dũng
-- 2022xxxx - Phạm Trường Sang
-- 2022xxxx - Đinh Xuân Toàn
+- 20225996 - Phạm Trường Sang
+- 20226067 - Đinh Xuân Toàn
 - 2022xxxx -
 
 ## Lưu ý
 
 Tạo nhánh mới trước khi viết và đẩy code lên. Ex: `tên\task`
 
-Check task trên Trello, khi đẩy code lên thì tạo pull request.
+Check task trên [Trello](https://trello.com/b/PDJhYNcV/oop-project), khi đẩy code lên thì tạo pull request.
 
 Đề xuất thì viết vào issue.
 
