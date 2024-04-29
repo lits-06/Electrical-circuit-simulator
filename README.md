@@ -15,6 +15,8 @@ Check task trên [Trello](https://trello.com/b/PDJhYNcV/oop-project), khi đẩy
 
 Đề xuất thì viết vào issue.
 
+**Tuyệt đối không được đẩy code lên nhánh master.**
+
 ## Cấu hình
 
 Với ai dùng vscode thì tạo file `launch.json` ở trong folder `.vscode`
