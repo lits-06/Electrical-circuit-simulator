@@ -50,7 +50,8 @@ Nhớ sửa lại `<JavaFX_lib_path>`. Ví dụ: `path/to/java/javafx-sdk-22.0.1
 Electrical circuit simulator
 ├── src
     ├── app
-    ├── gui
+    ├── controller
+    ├── fxml
     ├── models
     └── resources
 
@@ -58,7 +59,9 @@ Electrical circuit simulator
 
 `/src`: source code của dự án
 
-`/gui`: các class liên quan đến gui
+`/controller`: xử lí event + tương tác với giao diện
+
+`/fxml`: các file fxml để hiển thị giao diện
 
 `/models`: các class của phần tử mạch điện
 
