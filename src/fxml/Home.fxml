@@ -5,10 +5,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="648.0" prefWidth="936.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.HomeController">
    <children>
-      <HBox fx:id="hboxParallel" alignment="CENTER" onMouseClicked="#handleParallelClick" prefHeight="100.0" prefWidth="468.0" AnchorPane.bottomAnchor="548.3370701395484" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="468.33652495201545" AnchorPane.topAnchor="0.0">
+      <HBox fx:id="hboxParallel" alignment="CENTER" onMouseClicked="#handleHBoxClick" prefHeight="100.0" prefWidth="468.0" AnchorPane.bottomAnchor="548.3370701395484" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="468.33652495201545" AnchorPane.topAnchor="0.0">
          <children>
             <Label fx:id="parallelLabel" text="Parallel circuit">
                <font>
@@ -17,7 +16,7 @@
             </Label>
          </children>
       </HBox>
-      <HBox fx:id="hboxSerial" alignment="CENTER" layoutX="468.0" layoutY="-1.0" onMouseClicked="#handleSerialClick" prefHeight="100.0" prefWidth="468.0">
+      <HBox fx:id="hboxSerial" alignment="CENTER" layoutX="468.0" layoutY="-1.0" onMouseClicked="#handleHBoxClick" prefHeight="100.0" prefWidth="468.0">
          <children>
             <Label fx:id="serialLabel" text="Serial circuit">
                <font>

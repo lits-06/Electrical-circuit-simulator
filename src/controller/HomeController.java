@@ -1,10 +1,14 @@
 package controller;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 
 public class HomeController {
 
@@ -20,26 +24,22 @@ public class HomeController {
     @FXML
     private Label serialLabel;
 
-    private void resetDefaults() {
-        parallelLabel.setTextFill(Color.BLACK);
-        serialLabel.setTextFill(Color.BLACK);
-        hboxParallel.setStyle("-fx-background-color: white;");
-        hboxSerial.setStyle("-fx-background-color: white;");
-    }
-
     @FXML
-    private void handleParallelClick(MouseEvent event) {
-        resetDefaults();
+    private void handleHBoxClick(MouseEvent event) throws Exception {
+        FXMLLoader loader;
+        if (event.getSource() == hboxParallel) {
+            loader = new FXMLLoader(getClass().getResource("/fxml/Parallel.fxml"));
+        } else if (event.getSource() == hboxSerial) {
+            loader = new FXMLLoader(getClass().getResource("/fxml/Serial.fxml"));
+        } else {
+            return;
+        }
 
-        parallelLabel.setTextFill(Color.RED);
-        hboxParallel.setStyle("-fx-background-color: #fffafa;");
-    }
+        Parent newRoot = loader.load();
 
-    @FXML
-    private void handleSerialClick(MouseEvent event) {
-        resetDefaults();
-
-        serialLabel.setTextFill(Color.RED);
-        hboxSerial.setStyle("-fx-background-color: #fffafa;");
+        Stage stage = (Stage) ((HBox) event.getSource()).getScene().getWindow();
+        Scene newScene = new Scene(newRoot);
+        stage.setScene(newScene);
+        stage.show();
     }
 }
