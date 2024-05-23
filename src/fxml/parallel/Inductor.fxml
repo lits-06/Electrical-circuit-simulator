@@ -5,8 +5,8 @@
 <?import javafx.scene.shape.*?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="648.0"
-            prefWidth="936.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="controller.components.InductorController">
+            prefWidth="936.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+<!--            fx:controller="controller.components.InductorController">-->
     <children>
         <Group fx:id="inductorGroup" layoutX="259.0" layoutY="235.0" scaleX="20.0" scaleY="20.0">
             <CubicCurve controlX1="-2.5" controlX2="-1" controlY1="-2.0" controlY2="-2" endX="-1.0" fill="#eb383800"

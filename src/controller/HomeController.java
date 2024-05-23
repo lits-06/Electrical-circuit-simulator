@@ -7,7 +7,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class HomeController {
@@ -28,9 +27,9 @@ public class HomeController {
     private void handleHBoxClick(MouseEvent event) throws Exception {
         FXMLLoader loader;
         if (event.getSource() == hboxParallel) {
-            loader = new FXMLLoader(getClass().getResource("/fxml/Parallel.fxml"));
+            loader = new FXMLLoader(getClass().getResource("/fxml/parallel/Parallel.fxml"));
         } else if (event.getSource() == hboxSerial) {
-            loader = new FXMLLoader(getClass().getResource("/fxml/Serial.fxml"));
+            loader = new FXMLLoader(getClass().getResource("/fxml/serial/Serial.fxml"));
         } else {
             return;
         }

@@ -1,5 +1,6 @@
-package controller;
+package controller.serial;
 
+import controller.parallel.ParallelResultController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -19,18 +20,10 @@ import models.CircuitComponent;
 import models.DCSource;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ResourceBundle;
 
-public class ParallelController {
-
-    @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
+public class SerialController {
 
     @FXML
     private HBox hboxParallel;
@@ -43,12 +36,6 @@ public class ParallelController {
 
     @FXML
     private Label serialLabel;
-
-    @FXML
-    private HBox sourceInfo;
-
-    @FXML
-    private VBox elementInfo;
 
     @FXML
     private TextField dcVoltage;
@@ -84,6 +71,7 @@ public class ParallelController {
     List<DCSource> dcSources = new ArrayList<>();
 
     private final int MAX_ELEMENTS = 5;
+
     private boolean alertMaxElementsShown = false;
 
     @FXML
@@ -94,10 +82,10 @@ public class ParallelController {
     }
 
     @FXML
-    private void changeSerialScene(MouseEvent event) throws Exception {
+    private void changeParallelScene(MouseEvent event) throws Exception {
         FXMLLoader loader;
-        if (event.getSource() == hboxSerial) {
-            loader = new FXMLLoader(getClass().getResource("/fxml/Serial.fxml"));
+        if (event.getSource() == hboxParallel) {
+            loader = new FXMLLoader(getClass().getResource("/fxml/parallel/Parallel.fxml"));
         } else {
             return;
         }
@@ -195,10 +183,10 @@ public class ParallelController {
             dcSources.add(dcSource);
         }
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ParallelResult.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/serial/SerialResult.fxml"));
         Parent newRoot = loader.load();
 
-        ParallelResultController controller = loader.getController();
+        SerialResultController controller = loader.getController();
 
         // Truyền danh sách các thành phần vào controller của ParallelResult
         controller.setComponents(components);
@@ -212,5 +200,4 @@ public class ParallelController {
         Scene currentScene = btnSubmit.getScene();
         currentScene.setRoot(newRoot);
     }
-
 }

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Group?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="648.0" prefWidth="936.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<!--            fx:controller="controller.components.ResistorController">-->
+    <children>
+        <Group fx:id="resistorGroup" layoutX="263.0" layoutY="243.0" scaleX="20.0" scaleY="20.0">
+            <Line endX="-2.143" startX="-2.5" stroke="BLACK" strokeWidth="0.15" />
+            <Line endX="-1.786" endY="-1.25" startX="-2.143" stroke="BLACK" strokeWidth="0.15" />
+            <Line endX="-1.072" endY="1.25" startX="-1.786" startY="-1.25" stroke="BLACK" strokeWidth="0.15" />
+            <Line endX="-0.357" endY="-1.25" startX="-1.072" startY="1.25" stroke="BLACK" strokeWidth="0.15" />
+            <Line endX="0.357" endY="1.25" startX="-0.357" startY="-1.25" stroke="BLACK" strokeWidth="0.15" />
+            <Line endX="1.072" endY="-1.25" startX="0.357" startY="1.25" stroke="BLACK" strokeWidth="0.15" />
+            <Line endX="1.786" endY="1.25" startX="1.072" startY="-1.25" stroke="BLACK" strokeWidth="0.15" />
+            <Line endX="2.143" startX="1.786" startY="1.25" stroke="BLACK" strokeWidth="0.15" />
+            <Line endX="2.5" startX="2.143" stroke="BLACK" strokeWidth="0.15" />
+        </Group>
+      <Line endX="100.0" layoutX="114.0" layoutY="243.0" startX="62.399993896484375" strokeWidth="2.2" />
+      <Line endX="100.0" layoutX="246.0" layoutY="243.0" startX="62.399993896484375" strokeWidth="2.2" />
+      <Line endX="100.0" layoutX="246.0" layoutY="368.0" startX="-69.19999694824219" strokeWidth="2.2" />
+    </children>
+</AnchorPane>
