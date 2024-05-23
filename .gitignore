@@ -1,2 +1,5 @@
 .vscode
 bin
+.idea
+out
+Electrical-circuit-simulator.iml

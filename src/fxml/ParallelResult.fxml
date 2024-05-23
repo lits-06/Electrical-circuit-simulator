@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="648.0" prefWidth="936.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ParallelResultController">
+    <children>
+
+        <Text fx:id="title" layoutX="345.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Simulation Result" textAlignment="CENTER">
+            <font>
+                <Font size="30.0" />
+            </font>
+        </Text>
+        <Group fx:id="circuit">
+            <children>
+                <fx:include layoutX="-50.0" layoutY="-100.0" source="PowerSource.fxml" />
+                <HBox fx:id="resistorControl" layoutX="-276.0" layoutY="78.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="648.0" prefWidth="936.0">
+                    <children>
+                        <fx:include fx:id="resister1" layoutX="-276.0" layoutY="78.0" rotate="90.0" source="Resistor.fxml" visible="false" />
+                        <fx:include fx:id="resister2" layoutX="-146.0" layoutY="78.0" rotate="90.0" source="Resistor.fxml" translateX="-806.0" visible="false" />
+
+                        <fx:include fx:id="resister3" layoutX="-16.0" layoutY="78.0" rotate="90.0" source="Resistor.fxml" translateX="-1612.0" visible="false" />
+                        <fx:include fx:id="resister4" layoutX="114.0" layoutY="78.0" rotate="90.0" source="Resistor.fxml" translateX="-2418.0" visible="false" />
+                        <fx:include fx:id="resister5" layoutX="244.0" layoutY="78.0" rotate="90.0" source="Resistor.fxml" translateX="-3224.0" visible="false" />
+                    </children>
+                </HBox>
+
+                <HBox fx:id="capacitorControl" layoutX="-276.0" layoutY="78.0">
+                    <children>
+                        <fx:include fx:id="capacitor1" layoutX="-276.0" layoutY="78.0" rotate="90.0" source="Capacitor.fxml" visible="false" />
+                        <fx:include fx:id="capacitor2" layoutX="-146.0" layoutY="78.0" rotate="90.0" source="Capacitor.fxml" translateX="-806.0" visible="false" />
+                        <fx:include fx:id="capacitor3" layoutX="-16.0" layoutY="78.0" rotate="90.0" source="Capacitor.fxml" translateX="-1612.0" visible="false" />
+                        <fx:include fx:id="capacitor4" layoutX="114.0" layoutY="78.0" rotate="90.0" source="Capacitor.fxml" translateX="-2418.0" visible="false" />
+                        <fx:include fx:id="capacitor5" layoutX="244.0" layoutY="78.0" rotate="90.0" source="Capacitor.fxml" translateX="-3224.0" visible="false" />
+                    </children>
+                </HBox>
+
+                <HBox fx:id="inductorControl" layoutX="-276.0" layoutY="78.0">
+                    <children>
+                        <fx:include fx:id="inductor1" layoutX="-276.0" layoutY="78.0" rotate="90.0" source="Inductor.fxml" visible="false" />
+                        <fx:include fx:id="inductor2" layoutX="-146.0" layoutY="78.0" rotate="90.0" source="Inductor.fxml" translateX="-806.0" visible="false" />
+                        <fx:include fx:id="inductor3" layoutX="-16.0" layoutY="78.0" rotate="90.0" source="Inductor.fxml" translateX="-1612.0" visible="false" />
+                        <fx:include fx:id="inductor4" layoutX="114.0" layoutY="78.0" rotate="90.0" source="Inductor.fxml" translateX="-2418.0" visible="false" />
+                        <fx:include fx:id="inductor5" layoutX="244.0" layoutY="78.0" rotate="90.0" source="Inductor.fxml" translateX="-3224.0" visible="false" />
+
+                    </children>
+                </HBox>
+
+                <VBox fx:id="componentPowerSource" layoutX="175.0" layoutY="175.0">
+                </VBox>
+
+                <VBox fx:id="component1" layoutX="315.0" layoutY="175.0">
+                </VBox>
+
+                <VBox fx:id="component2" layoutX="445.0" layoutY="175.0">
+                </VBox>
+
+                <VBox fx:id="component3" layoutX="575.0" layoutY="175.0">
+                </VBox>
+
+                <VBox fx:id="component4" layoutX="705.0" layoutY="175.0">
+                </VBox>
+
+                <VBox fx:id="component5" layoutX="835.0" layoutY="175.0">
+                </VBox>
+
+
+            </children>
+        </Group>
+
+    <Button fx:id="btnBack" layoutX="50.0" layoutY="25.0" mnemonicParsing="false" onMouseClicked="#handleBackClick" text="Back" />
+
+        <TableView fx:id="componentTable" layoutX="50.0" layoutY="350.0" prefHeight="200.0" prefWidth="836.0">
+            <columns>
+                <TableColumn fx:id="componentNameColumn" prefWidth="221.99999237060547" text="Component Name" />
+                <TableColumn fx:id="voltageColumn" minWidth="0.0" prefWidth="204.4000244140625" text="Voltage (U)" />
+                <TableColumn fx:id="currentColumn" minWidth="0.0" prefWidth="208.80007934570312" text="Current (I)" />
+                <TableColumn fx:id="resistanceColumn" minWidth="0.0" prefWidth="203.199951171875" text="Resistance (R)" />
+            </columns>
+        </TableView>
+    </children>
+</AnchorPane>

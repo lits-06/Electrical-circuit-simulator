@@ -7,9 +7,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-public class SerialController {
+public class HomeController {
 
     @FXML
     private HBox hboxParallel;
@@ -23,13 +24,13 @@ public class SerialController {
     @FXML
     private Label serialLabel;
 
-    private int maxElement = 5;
-
     @FXML
-    private void changeParallelScene(MouseEvent event) throws Exception {
+    private void handleHBoxClick(MouseEvent event) throws Exception {
         FXMLLoader loader;
         if (event.getSource() == hboxParallel) {
             loader = new FXMLLoader(getClass().getResource("/fxml/Parallel.fxml"));
+        } else if (event.getSource() == hboxSerial) {
+            loader = new FXMLLoader(getClass().getResource("/fxml/Serial.fxml"));
         } else {
             return;
         }
