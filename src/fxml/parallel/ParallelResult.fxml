@@ -20,7 +20,6 @@
                     <children>
                         <fx:include fx:id="resister1" layoutX="-276.0" layoutY="78.0" rotate="90.0" source="Resistor.fxml" visible="false" />
                         <fx:include fx:id="resister2" layoutX="-146.0" layoutY="78.0" rotate="90.0" source="Resistor.fxml" translateX="-806.0" visible="false" />
-
                         <fx:include fx:id="resister3" layoutX="-16.0" layoutY="78.0" rotate="90.0" source="Resistor.fxml" translateX="-1612.0" visible="false" />
                         <fx:include fx:id="resister4" layoutX="114.0" layoutY="78.0" rotate="90.0" source="Resistor.fxml" translateX="-2418.0" visible="false" />
                         <fx:include fx:id="resister5" layoutX="244.0" layoutY="78.0" rotate="90.0" source="Resistor.fxml" translateX="-3224.0" visible="false" />

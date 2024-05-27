@@ -19,7 +19,7 @@
                 </Label>
             </children>
         </HBox>
-        <HBox fx:id="hboxSerial" alignment="CENTER" layoutX="468.0" layoutY="-1.0" onMouseClicked="#changeSerialScene"
+        <HBox fx:id="hboxSerial" alignment="CENTER" layoutX="468.0" layoutY="-1.0" onMouseClicked="#changeScene"
               prefHeight="100.0" prefWidth="468.0">
             <children>
                 <Label fx:id="serialLabel" text="Serial circuit">

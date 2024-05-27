@@ -1,5 +1,6 @@
 package controller.parallel;
 
+import controller.CircuitController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -24,79 +25,168 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class ParallelController {
+public class ParallelController extends CircuitController {
 
-    @FXML
-    private ResourceBundle resources;
 
-    @FXML
-    private URL location;
+    //    @FXML
+//    private ResourceBundle resources;
+//
+//    @FXML
+//    private URL location;
+//
+//    @FXML
+//    private HBox hboxParallel;
+//
+//    @FXML
+//    private HBox hboxSerial;
+//
+//    @FXML
+//    private Label parallelLabel;
+//
+//    @FXML
+//    private Label serialLabel;
+//
+//    @FXML
+//    private HBox sourceInfo;
+//
+//    @FXML
+//    private VBox elementInfo;
+//
+//    @FXML
+//    private TextField dcVoltage;
+//
+//    @FXML
+//    private TextField acVoltage;
+//
+//    @FXML
+//    private TextField acFrequency;
+//
+//    @FXML
+//    private Label voltageUnit;
+//
+//    @FXML
+//    private Label hzUnit;
+//
+//    @FXML
+//    private VBox elementContainer;
+//
+//    @FXML
+//    private ChoiceBox<String> sourceType;
+//
+//    private ObservableList<String> sourceItems;
+//
+//    @FXML
+//    private Button btnSubmit;
+//
+//    private int resistorCount = 0;
+//    private int capacitorCount = 0;
+//    private int inductorCount = 0;
+//    List<CircuitComponent> components = new ArrayList<>();
+//    List<ACSource> acSources = new ArrayList<>();
+//    List<DCSource> dcSources = new ArrayList<>();
+//
+//    private final int MAX_ELEMENTS = 5;
+//    private boolean alertMaxElementsShown = false;
+//
+//    @FXML
+//    void initialize() {
+//        sourceItems = FXCollections.observableArrayList("AC", "DC");
+//
+//        sourceType.setItems(sourceItems);
+//    }
+//
+//    @FXML
+//    private void changeSerialScene(MouseEvent event) throws Exception {
+//        FXMLLoader loader;
+//        if (event.getSource() == hboxSerial) {
+//            loader = new FXMLLoader(getClass().getResource("/fxml/serial/Serial.fxml"));
+//        } else {
+//            return;
+//        }
+//
+//        Parent newRoot = loader.load();
+//
+//        Stage stage = (Stage) ((HBox) event.getSource()).getScene().getWindow();
+//        Scene newScene = new Scene(newRoot);
+//        stage.setScene(newScene);
+//        stage.show();
+//    }
+//
+//    @FXML
+//    private void handleSourceChange() {
+//        String selectedType = sourceType.getValue();
+//
+//        if ("DC".equals(selectedType)) {
+//            dcVoltage.setVisible(true);
+//
+//            voltageUnit.setVisible(true);
+//
+//            acVoltage.setVisible(false);
+//            acFrequency.setVisible(false);
+//            hzUnit.setVisible(false);
+//        } else if ("AC".equals(selectedType)) {
+//            acVoltage.setVisible(true);
+//            acFrequency.setVisible(true);
+//
+//            voltageUnit.setVisible(true);
+//            hzUnit.setVisible(true);
+//
+//            dcVoltage.setVisible(false);
+//
+//        }
+//    }
+//
+//    @FXML
+//    private void addResistor() {
+//        resistorCount++;
+//        addElement("Resistor", "R" + resistorCount, "Ω");
+//    }
+//
+//    @FXML
+//    private void addCapacitor() {
+//        capacitorCount++;
+//        addElement("Capacitor", "C" + capacitorCount, "µF");
+//    }
+//
+//    @FXML
+//    private void addInductor() {
+//        inductorCount++;
+//        addElement("Inductor", "L" + inductorCount, "µH");
+//    }
+//
+//    private void addElement(String elementType, String elementName, String elementUnit) {
+//        if (resistorCount + capacitorCount + inductorCount > MAX_ELEMENTS) {
+//            if (!alertMaxElementsShown) {
+//                HBox newElement = new HBox(10);
+//                Label nameLabel = new Label("Cannot add more than " + MAX_ELEMENTS + " elements.");
+//                newElement.getChildren().addAll(nameLabel);
+//                elementContainer.getChildren().add(newElement);
+//                alertMaxElementsShown = true;
+//            }
+//            return;
+//        }
+//
+//        HBox newElement = new HBox(10);
+//        Label nameLabel = new Label(elementName);
+//        TextField parameterField = new TextField();
+//        Label itemUnit = new Label(elementUnit);
+//        CircuitComponent component = new CircuitComponent(elementType, elementName, elementUnit, ""); // Tạo đối tượng mới
+//        components.add(component); // Thêm vào danh sách
+//
+//        parameterField.textProperty().addListener((observable, oldValue, newValue) -> {
+//            component.setValue(newValue); // Cập nhật giá trị của thành phần khi giá trị thay đổi
+//        });
+//
+//
+//        newElement.getChildren().addAll(nameLabel, parameterField, itemUnit);
+//        elementContainer.getChildren().add(newElement);
+//    }
+//
 
-    @FXML
-    private HBox hboxParallel;
-
-    @FXML
-    private HBox hboxSerial;
-
-    @FXML
-    private Label parallelLabel;
-
-    @FXML
-    private Label serialLabel;
-
-    @FXML
-    private HBox sourceInfo;
-
-    @FXML
-    private VBox elementInfo;
-
-    @FXML
-    private TextField dcVoltage;
-
-    @FXML
-    private TextField acVoltage;
-
-    @FXML
-    private TextField acFrequency;
-
-    @FXML
-    private Label voltageUnit;
-
-    @FXML
-    private Label hzUnit;
-
-    @FXML
-    private VBox elementContainer;
-
-    @FXML
-    private ChoiceBox<String> sourceType;
-
-    private ObservableList<String> sourceItems;
-
-    @FXML
-    private Button btnSubmit;
-
-    private int resistorCount = 0;
-    private int capacitorCount = 0;
-    private int inductorCount = 0;
-    List<CircuitComponent> components = new ArrayList<>();
-    List<ACSource> acSources = new ArrayList<>();
-    List<DCSource> dcSources = new ArrayList<>();
-
-    private final int MAX_ELEMENTS = 5;
-    private boolean alertMaxElementsShown = false;
-
-    @FXML
-    void initialize() {
-        sourceItems = FXCollections.observableArrayList("AC", "DC");
-
-        sourceType.setItems(sourceItems);
-    }
-
-    @FXML
-    private void changeSerialScene(MouseEvent event) throws Exception {
+    public void changeScene(MouseEvent event) throws Exception {
+        super.changeScene(event);
         FXMLLoader loader;
-        if (event.getSource() == hboxSerial) {
+        if (event.getSource() == getHboxSerial()) {
             loader = new FXMLLoader(getClass().getResource("/fxml/serial/Serial.fxml"));
         } else {
             return;
@@ -110,105 +200,33 @@ public class ParallelController {
         stage.show();
     }
 
-    @FXML
-    private void handleSourceChange() {
-        String selectedType = sourceType.getValue();
-
-        if ("DC".equals(selectedType)) {
-            dcVoltage.setVisible(true);
-
-            voltageUnit.setVisible(true);
-
-            acVoltage.setVisible(false);
-            acFrequency.setVisible(false);
-            hzUnit.setVisible(false);
-        } else if ("AC".equals(selectedType)) {
-            acVoltage.setVisible(true);
-            acFrequency.setVisible(true);
-
-            voltageUnit.setVisible(true);
-            hzUnit.setVisible(true);
-
-            dcVoltage.setVisible(false);
-
-        }
-    }
-
-    @FXML
-    private void addResistor() {
-        resistorCount++;
-        addElement("Resistor", "R" + resistorCount, "Ω");
-    }
-
-    @FXML
-    private void addCapacitor() {
-        capacitorCount++;
-        addElement("Capacitor", "C" + capacitorCount, "µF");
-    }
-
-    @FXML
-    private void addInductor() {
-        inductorCount++;
-        addElement("Inductor", "L" + inductorCount, "µH");
-    }
-
-    private void addElement(String elementType, String elementName, String elementUnit) {
-        if (resistorCount + capacitorCount + inductorCount > MAX_ELEMENTS) {
-            if (!alertMaxElementsShown) {
-                HBox newElement = new HBox(10);
-                Label nameLabel = new Label("Cannot add more than " + MAX_ELEMENTS + " elements.");
-                newElement.getChildren().addAll(nameLabel);
-                elementContainer.getChildren().add(newElement);
-                alertMaxElementsShown = true;
-            }
-            return;
-        }
-
-        HBox newElement = new HBox(10);
-        Label nameLabel = new Label(elementName);
-        TextField parameterField = new TextField();
-        Label itemUnit = new Label(elementUnit);
-        CircuitComponent component = new CircuitComponent(elementType, elementName, elementUnit, ""); // Tạo đối tượng mới
-        components.add(component); // Thêm vào danh sách
-
-        parameterField.textProperty().addListener((observable, oldValue, newValue) -> {
-            component.setValue(newValue); // Cập nhật giá trị của thành phần khi giá trị thay đổi
-        });
-
-
-        newElement.getChildren().addAll(nameLabel, parameterField, itemUnit);
-        elementContainer.getChildren().add(newElement);
-    }
-
-    @FXML
     public void handleSubmit() throws IOException {
-        if ("AC".equals(sourceType.getValue())) {
-            String acVoltageValue = acVoltage.getText();
-            String acFrequencyValue = acFrequency.getText();
-            ACSource acSource = new ACSource("V", "Hz", acVoltageValue, acFrequencyValue);
-            acSources.add(acSource);
-        }
+//        if ("AC".equals(sourceType.getValue())) {
+//            String acVoltageValue = acVoltage.getText();
+//            String acFrequencyValue = acFrequency.getText();
+//            ACSource acSource = new ACSource("V", "Hz", acVoltageValue, acFrequencyValue);
+//            acSources.add(acSource);
+//        }
+//
+//        if ("DC".equals(sourceType.getValue())) {
+//            String dcVoltageValue = dcVoltage.getText();
+//            DCSource dcSource = new DCSource("V", dcVoltageValue);
+//            dcSources.add(dcSource);
+//        }
 
-        if ("DC".equals(sourceType.getValue())) {
-            String dcVoltageValue = dcVoltage.getText();
-            DCSource dcSource = new DCSource("V", dcVoltageValue);
-            dcSources.add(dcSource);
-        }
+        super.handleSubmit();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/parallel/ParallelResult.fxml"));
         Parent newRoot = loader.load();
 
         ParallelResultController controller = loader.getController();
 
         // Truyền danh sách các thành phần vào controller của ParallelResult
-        controller.setComponents(components);
-        controller.setAcSources(acSources);
-        controller.setDcSources(dcSources);
+//        controller.setAcSources(getAcSources());
+//        controller.setDcSources(getDcSources());
         controller.setupComponentTable();
+        controller.setComponents(getComponents());
 
-        // Truyền giá trị count vào controller của ParallelResult
-        controller.setCount(resistorCount + capacitorCount + inductorCount);
-
-        Scene currentScene = btnSubmit.getScene();
+        Scene currentScene = getBtnSubmit().getScene();
         currentScene.setRoot(newRoot);
     }
 
