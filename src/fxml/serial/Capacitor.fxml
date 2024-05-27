@@ -4,17 +4,19 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Line?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="648.0" prefWidth="936.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
-<!--            fx:controller="controller.components.CapacitorController">-->
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="648.0"
+            prefWidth="936.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <Group fx:id="capacitorGroup" layoutX="263.0" layoutY="243.0" scaleX="20.0" scaleY="20.0">
-            <Line endX="-0.5" startX="-2.5" stroke="BLACK" strokeWidth="0.15" />
-            <Line endX="-0.5" endY="1.5" startX="-0.5" startY="-1.5" stroke="BLACK" strokeWidth="0.15" />
-            <Line endX="0.5" endY="1.5" startX="0.5" startY="-1.5" stroke="BLACK" strokeWidth="0.15" />
-            <Line endX="2.5" startX="0.5" stroke="BLACK" strokeWidth="0.15" />
+            <Line endX="-0.5" startX="-2.5" stroke="BLACK" strokeWidth="0.15"/>
+            <Line endX="-0.5" endY="1.5" startX="-0.5" startY="-1.5" stroke="BLACK" strokeWidth="0.15"/>
+            <Line endX="0.5" endY="1.5" startX="0.5" startY="-1.5" stroke="BLACK" strokeWidth="0.15"/>
+            <Line endX="2.5" startX="0.5" stroke="BLACK" strokeWidth="0.15"/>
         </Group>
-      <Line endX="100.0" layoutX="110.0" layoutY="243.0" startX="67.99998474121094" startY="-1.52587890625E-5" strokeWidth="2.2" />
-      <Line endX="100.0" layoutX="246.0" layoutY="243.0" startX="67.99998474121094" startY="-1.52587890625E-5" strokeWidth="2.2" />
-      <Line endX="84.79998779296875" layoutX="260.0" layoutY="368.0" startX="-83.79997253417969" strokeWidth="2.2" />
+        <Line endX="100.0" layoutX="110.0" layoutY="243.0" startX="67.99998474121094" startY="-1.52587890625E-5"
+              strokeWidth="2.2"/>
+        <Line endX="100.0" layoutX="246.0" layoutY="243.0" startX="67.99998474121094" startY="-1.52587890625E-5"
+              strokeWidth="2.2"/>
+        <Line endX="84.79998779296875" layoutX="260.0" layoutY="368.0" startX="-83.79997253417969" strokeWidth="2.2"/>
     </children>
 </AnchorPane>

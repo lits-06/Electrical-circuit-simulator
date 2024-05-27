@@ -5,7 +5,6 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -15,9 +14,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import models.ACSource;
 import models.CircuitComponent;
-import models.DCSource;
 
 import java.net.URL;
 import java.util.List;
@@ -55,9 +52,6 @@ public abstract class CircuitResultController implements Initializable {
     private VBox component5;
 
     @FXML
-    private Group circuit;
-
-    @FXML
     private HBox lineEndControl;
 
     @FXML
@@ -77,8 +71,6 @@ public abstract class CircuitResultController implements Initializable {
     private int countPosition = 0;
     private boolean isCountSet = false;
     private List<CircuitComponent> components;
-    private List<ACSource> acSources;
-    private List<DCSource> dcSources;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -110,19 +102,6 @@ public abstract class CircuitResultController implements Initializable {
         isCountSet = true;
         updateVisibility();
     }
-
-//    public void setAcSources(List<ACSource> acSources) {
-//        this.acSources = acSources;
-//        if (circuit != null)
-//            displayAcSources();
-//    }
-
-//    public void setDcSources(List<DCSource> dcSources) {
-//        this.dcSources = dcSources;
-//        if (circuit != null)
-//            displayDcSources();
-//    }
-
 
     private void displayComponentValues() {
         ObservableList<CircuitComponent> componentList = FXCollections.observableArrayList(components);
@@ -196,24 +175,4 @@ public abstract class CircuitResultController implements Initializable {
             countPosition++;
         }
     }
-
-//    private void displayAcSources() {
-//        for (ACSource acSource : acSources) {
-//            Label voltageLabel = new Label(acSource.getAcVoltage() + " " + acSource.getAcVoltageUnit());
-//            Label frequencyLabel = new Label(acSource.getAcFrequency() + " " + acSource.getAcFrequencyUnit());
-//            voltageLabel.setStyle("-fx-font-family: 'Arial Rounded MT Bold'; -fx-font-size: 20px;");
-//            frequencyLabel.setStyle("-fx-font-family: 'Arial Rounded MT Bold'; -fx-font-size: 20px;");
-//
-//            componentPowerSource.getChildren().addAll(voltageLabel, frequencyLabel);
-//        }
-//    }
-
-//    private void displayDcSources() {
-//        for (DCSource dcSource : dcSources) {
-//            Label voltageLabel = new Label(dcSource.getAcVoltage() + " " + dcSource.getAcVoltageUnit());
-//            voltageLabel.setStyle("-fx-font-family: 'Arial Rounded MT Bold'; -fx-font-size: 20px;");
-//
-//            componentPowerSource.getChildren().addAll(voltageLabel);
-//        }
-//    }
 }

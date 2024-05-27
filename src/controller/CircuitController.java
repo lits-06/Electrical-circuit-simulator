@@ -15,17 +15,10 @@ import models.CircuitComponent;
 import models.DCSource;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ResourceBundle;
 
 public class CircuitController {
-    @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
 
     @FXML
     private HBox hboxParallel;
@@ -113,20 +106,7 @@ public class CircuitController {
     }
 
     @FXML
-    public void changeScene(MouseEvent event) throws Exception {
-//        FXMLLoader loader;
-//        if (event.getSource() == hboxSerial) {
-//            loader = new FXMLLoader(getClass().getResource("/fxml/serial/Serial.fxml"));
-//        } else {
-//            return;
-//        }
-//
-//        Parent newRoot = loader.load();
-//
-//        Stage stage = (Stage) ((HBox) event.getSource()).getScene().getWindow();
-//        Scene newScene = new Scene(newRoot);
-//        stage.setScene(newScene);
-//        stage.show();
+    public void changeCircuitScene(MouseEvent event) throws Exception {
     }
 
     @FXML
@@ -212,32 +192,5 @@ public class CircuitController {
             CircuitComponent component = new CircuitComponent("dcSource", "U", "V", dcVoltageValue);
             components.add(component);
         }
-
-//        if ("AC".equals(sourceType.getValue())) {
-//            String acVoltageValue = acVoltage.getText();
-//            String acFrequencyValue = acFrequency.getText();
-//            ACSource acSource = new ACSource("V", "Hz", acVoltageValue, acFrequencyValue);
-//            acSources.add(acSource);
-//        }
-//        if ("DC".equals(sourceType.getValue())) {
-//            String dcVoltageValue = dcVoltage.getText();
-//            DCSource dcSource = new DCSource("V", dcVoltageValue);
-//            dcSources.add(dcSource);
-//        }
-
-//        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/parallel/ParallelResult.fxml"));
-//        Parent newRoot = loader.load();
-//
-//        ParallelResultController controller = loader.getController();
-//
-//        // Truyền danh sách các thành phần vào controller của ParallelResult
-//        controller.setAcSources(acSources);
-//        controller.setDcSources(dcSources);
-//        controller.setupComponentTable();
-//        controller.setComponents(components);
-//
-//        Scene currentScene = btnSubmit.getScene();
-//        currentScene.setRoot(newRoot);
     }
-
 }
