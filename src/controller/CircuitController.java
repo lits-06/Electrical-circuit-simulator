@@ -3,6 +3,9 @@ package controller;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
@@ -10,6 +13,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import models.ACSource;
 import models.CircuitComponent;
 import models.DCSource;
@@ -106,7 +110,14 @@ public class CircuitController {
     }
 
     @FXML
-    public void changeCircuitScene(MouseEvent event) throws Exception {
+    public void changeCircuitScene(MouseEvent event, String fxmlPath) throws Exception {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+        Parent newRoot = loader.load();
+
+        Stage stage = (Stage) ((HBox) event.getSource()).getScene().getWindow();
+        Scene newScene = new Scene(newRoot);
+        stage.setScene(newScene);
+        stage.show();
     }
 
     @FXML
@@ -167,13 +178,13 @@ public class CircuitController {
         Label nameLabel = new Label(elementName);
         TextField parameterField = new TextField();
         Label itemUnit = new Label(elementUnit);
-        CircuitComponent component = new CircuitComponent(elementType, elementName, elementUnit, ""); // Tạo đối tượng mới
+        CircuitComponent component = new CircuitComponent(elementType, elementName, elementUnit, ""); // Tạo đối tượng
+                                                                                                      // mới
         components.add(component); // Thêm vào danh sách
 
         parameterField.textProperty().addListener((observable, oldValue, newValue) -> {
             component.setValue(newValue); // Cập nhật giá trị của thành phần khi giá trị thay đổi
         });
-
 
         newElement.getChildren().addAll(nameLabel, parameterField, itemUnit);
         elementContainer.getChildren().add(newElement);
@@ -184,7 +195,8 @@ public class CircuitController {
         if ("AC".equals(sourceType.getValue())) {
             String acVoltageValue = acVoltage.getText();
             String acFrequencyValue = acFrequency.getText();
-            CircuitComponent component = new CircuitComponent("acSource", "U", "V", acVoltageValue, "Hz", acFrequencyValue);
+            CircuitComponent component = new CircuitComponent("acSource", "U", "V", acVoltageValue, "Hz",
+                    acFrequencyValue);
             components.add(component);
         }
         if ("DC".equals(sourceType.getValue())) {

@@ -11,21 +11,9 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class ParallelController extends CircuitController {
+
     public void changeCircuitScene(MouseEvent event) throws Exception {
-        super.changeCircuitScene(event);
-        FXMLLoader loader;
-        if (event.getSource() == getHboxSerial()) {
-            loader = new FXMLLoader(getClass().getResource("/fxml/serial/Serial.fxml"));
-        } else {
-            return;
-        }
-
-        Parent newRoot = loader.load();
-
-        Stage stage = (Stage) ((HBox) event.getSource()).getScene().getWindow();
-        Scene newScene = new Scene(newRoot);
-        stage.setScene(newScene);
-        stage.show();
+        super.changeCircuitScene(event, "/fxml/serial/Serial.fxml");
     }
 
     public void handleSubmit() throws IOException {
