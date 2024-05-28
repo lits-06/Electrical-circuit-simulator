@@ -4,21 +4,23 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="648.0" prefWidth="936.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.parallel.ParallelResultController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="648.0"
+            prefWidth="936.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controller.parallel.ParallelResultController">
     <children>
-        <!--        <HBox fx:id="PowerSource" layoutX="168.0" layoutY="241.58578491210938">-->
-        <!--            <children>-->
         <Group layoutX="-50.0" layoutY="-100.0">
-            <Ellipse fill="#1f93ff00" layoutX="193.0" layoutY="295.0" radiusX="25.0" radiusY="26.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.2" />
-            <Line endX="6.1999969482421875" layoutX="195.0" layoutY="306.0" startX="-10.399993896484375" strokeWidth="2.2" />
-            <Line endX="6.1999969482421875" layoutX="195.0" layoutY="287.0" rotate="90.0" startX="-10.399993896484375" strokeWidth="2.2" />
-            <Line endX="6.1999969482421875" layoutX="195.0" layoutY="287.0" startX="-10.399993896484375" strokeWidth="2.2" />
-            <Line endX="-25.000015258789062" endY="68.0" layoutX="218.0" layoutY="200.0" startX="-25.000015258789062" startY="32.600006103515625" strokeWidth="2.2" />
-           <Line endX="-25.000015258789062" endY="68.60000610351562" layoutX="218.0" layoutY="288.0" startX="-25.000015258789062" startY="32.600006103515625" strokeWidth="2.2" />
+            <Ellipse fill="#1f93ff00" layoutX="193.0" layoutY="295.0" radiusX="25.0" radiusY="26.0" stroke="BLACK"
+                     strokeType="INSIDE" strokeWidth="2.2"/>
+            <Line endX="6.1999969482421875" layoutX="195.0" layoutY="306.0" startX="-10.399993896484375"
+                  strokeWidth="2.2"/>
+            <Line endX="6.1999969482421875" layoutX="195.0" layoutY="287.0" rotate="90.0" startX="-10.399993896484375"
+                  strokeWidth="2.2"/>
+            <Line endX="6.1999969482421875" layoutX="195.0" layoutY="287.0" startX="-10.399993896484375"
+                  strokeWidth="2.2"/>
+            <Line endX="-25.000015258789062" endY="68.0" layoutX="218.0" layoutY="200.0" startX="-25.000015258789062"
+                  startY="32.600006103515625" strokeWidth="2.2"/>
+            <Line endX="-25.000015258789062" endY="68.60000610351562" layoutX="218.0" layoutY="288.0"
+                  startX="-25.000015258789062" startY="32.600006103515625" strokeWidth="2.2"/>
         </Group>
-        <!--            </children>-->
-        <!--        </HBox>-->
     </children>
-
-
 </AnchorPane>

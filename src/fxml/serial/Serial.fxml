@@ -4,12 +4,11 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<?import javafx.scene.control.Button?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="648.0"
             prefWidth="936.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="controller.serial.SerialController">
     <children>
-        <HBox fx:id="hboxParallel" alignment="CENTER" onMouseClicked="#changeParallelScene" prefHeight="100.0"
+        <HBox fx:id="hboxParallel" alignment="CENTER" onMouseClicked="#changeCircuitScene" prefHeight="100.0"
               prefWidth="468.0" AnchorPane.bottomAnchor="548.3370701395484" AnchorPane.leftAnchor="0.0"
               AnchorPane.rightAnchor="468.33652495201545" AnchorPane.topAnchor="0.0">
             <children>

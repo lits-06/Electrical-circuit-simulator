@@ -6,7 +6,6 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="648.0"
             prefWidth="936.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
-<!--            fx:controller="controller.components.ResistorController">-->
     <children>
         <Group fx:id="resistorGroup" layoutX="263.0" layoutY="243.0" scaleX="20.0" scaleY="20.0">
             <Line endX="-2.143" startX="-2.5" stroke="BLACK" strokeWidth="0.15"/>
