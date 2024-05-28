@@ -83,6 +83,10 @@ public class CircuitController {
         sourceItems = FXCollections.observableArrayList("AC", "DC");
 
         sourceType.setItems(sourceItems);
+
+        sourceType.setValue("DC");
+        dcVoltage.setVisible(true);
+        voltageUnit.setVisible(true);
     }
 
     public List<CircuitComponent> getComponents() {
@@ -140,7 +144,6 @@ public class CircuitController {
             hzUnit.setVisible(true);
 
             dcVoltage.setVisible(false);
-
         }
     }
 
