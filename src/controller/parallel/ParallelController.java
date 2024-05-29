@@ -27,11 +27,12 @@ public class ParallelController extends CircuitController {
             // Truyền danh sách các thành phần vào controller của ParallelResult
             controller.setupComponentTable();
             controller.setComponents(getComponents());
+            controller.setSource(getSource());
 
             Scene currentScene = getBtnSubmit().getScene();
             currentScene.setRoot(newRoot);
         } catch (Exception e) {
-            System.err.println("Error: invalid value" + e.getMessage());
+            System.err.println("Error: " + e.getMessage());
         }
     }
 

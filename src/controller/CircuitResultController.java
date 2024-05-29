@@ -20,7 +20,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public abstract class CircuitResultController implements Initializable {
+public abstract class CircuitResultController {
     @FXML
     private HBox resistorControl;
 
@@ -69,21 +69,15 @@ public abstract class CircuitResultController implements Initializable {
     @FXML
     private TableColumn<CircuitComponent, String> resistanceColumn;
     private int countPosition = 0;
-    private boolean isCountSet = false;
     private List<CircuitComponent> components;
+    private CircuitComponent source;
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        if (isCountSet) {
-            updateVisibility();
-        }
-        if (components != null) {
-            displayComponentValues();
-        }
+    public List<CircuitComponent> getComoponents() {
+        return components;
     }
 
-    public List<CircuitComponent> getComponents() {
-        return components;
+    public CircuitComponent getSource() {
+        return source;
     }
 
     public HBox getLineEndControl() {
@@ -99,8 +93,12 @@ public abstract class CircuitResultController implements Initializable {
 
     public void setComponents(List<CircuitComponent> components) {
         this.components = components;
-        isCountSet = true;
-        updateVisibility();
+        updateComponentVisibility();
+    }
+
+    public void setSource(CircuitComponent source) {
+        this.source = source;
+        updateSourceVisibility();
     }
 
     private void displayComponentValues() {
@@ -117,7 +115,7 @@ public abstract class CircuitResultController implements Initializable {
         currentScene.setRoot(newRoot);
     }
 
-    public void updateVisibility() {
+    public void updateComponentVisibility() {
         for (CircuitComponent component : components) {
             HBox componentBox = new HBox(1);
             Label nameLabel = new Label(component.getName());
@@ -138,41 +136,55 @@ public abstract class CircuitResultController implements Initializable {
                 case "Inductor" -> {
                     inductorControl.getChildren().get(countPosition).setVisible(true);
                 }
-                case "dcSource" -> {
-                    Label voltageLabel = new Label(component.getValue() + " " + component.getUnit());
-                    voltageLabel.setStyle("-fx-font-family: 'Arial Rounded MT Bold'; -fx-font-size: 20px;");
-                    componentPowerSource.getChildren().addAll(voltageLabel);
+            }
 
+            switch (countPosition) {
+                case 0 -> {
+                    component1.getChildren().addAll(nameLabel, componentBox);
                 }
-                case "acSource" -> {
-                    Label voltageLabel = new Label(component.getValue() + " " + component.getUnit());
-                    Label frequencyLabel = new Label(component.getValue2() + " " + component.getUnit2());
-                    voltageLabel.setStyle("-fx-font-family: 'Arial Rounded MT Bold'; -fx-font-size: 20px;");
-                    frequencyLabel.setStyle("-fx-font-family: 'Arial Rounded MT Bold'; -fx-font-size: 20px;");
-                    componentPowerSource.getChildren().addAll(voltageLabel, frequencyLabel);
+                case 1 -> {
+                    component2.getChildren().addAll(nameLabel, componentBox);
+                }
+                case 2 -> {
+                    component3.getChildren().addAll(nameLabel, componentBox);
+                }
+                case 3 -> {
+                    component4.getChildren().addAll(nameLabel, componentBox);
+                }
+                case 4 -> {
+                    component5.getChildren().addAll(nameLabel, componentBox);
                 }
             }
 
-            if (!(component.getType().equals("dcSource") || component.getType().equals("acSource"))) {
-                switch (countPosition) {
-                    case 0 -> {
-                        component1.getChildren().addAll(nameLabel, componentBox);
-                    }
-                    case 1 -> {
-                        component2.getChildren().addAll(nameLabel, componentBox);
-                    }
-                    case 2 -> {
-                        component3.getChildren().addAll(nameLabel, componentBox);
-                    }
-                    case 3 -> {
-                        component4.getChildren().addAll(nameLabel, componentBox);
-                    }
-                    case 4 -> {
-                        component5.getChildren().addAll(nameLabel, componentBox);
-                    }
-                }
-            }
             countPosition++;
         }
     }
+
+    public void updateSourceVisibility() {
+        HBox sourceBox = new HBox(1);
+        Label nameLabel = new Label(source.getName());
+        Label valueLabel = new Label(source.getValue());
+        Label unitLabel = new Label(source.getUnit());
+        nameLabel.setStyle("-fx-font-family: 'Arial Rounded MT Bold'; -fx-font-size: 20px;");
+        valueLabel.setStyle("-fx-font-family: 'Arial Rounded MT Bold'; -fx-font-size: 20px;");
+        unitLabel.setStyle("-fx-font-family: 'Arial Rounded MT Bold'; -fx-font-size: 20px;");
+        sourceBox.getChildren().addAll(valueLabel, unitLabel);
+
+        switch (source.getType()) {
+            case "dcSource" -> {
+                Label voltageLabel = new Label(source.getValue() + " " + source.getUnit());
+                voltageLabel.setStyle("-fx-font-family: 'Arial Rounded MT Bold'; -fx-font-size: 20px;");
+                componentPowerSource.getChildren().addAll(voltageLabel);
+
+            }
+            case "acSource" -> {
+                Label voltageLabel = new Label(source.getValue() + " " + source.getUnit());
+                Label frequencyLabel = new Label(source.getValue2() + " " + source.getUnit2());
+                voltageLabel.setStyle("-fx-font-family: 'Arial Rounded MT Bold'; -fx-font-size: 20px;");
+                frequencyLabel.setStyle("-fx-font-family: 'Arial Rounded MT Bold'; -fx-font-size: 20px;");
+                componentPowerSource.getChildren().addAll(voltageLabel, frequencyLabel);
+            }
+        }
+    }
+
 }

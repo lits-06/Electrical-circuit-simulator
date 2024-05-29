@@ -8,6 +8,10 @@ public class CircuitComponent {
     private String value2 = null;
     private String unit2 = null;
 
+    private String resistance;
+    private String voltage;
+    private String current;
+
     public CircuitComponent(String type, String name, String unit, String value) {
         this.type = type;
         this.name = name;

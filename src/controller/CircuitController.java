@@ -71,9 +71,8 @@ public class CircuitController {
     private int resistorCount = 0;
     private int capacitorCount = 0;
     private int inductorCount = 0;
-    List<CircuitComponent> components = new ArrayList<>();
-    List<ACSource> acSources = new ArrayList<>();
-    List<DCSource> dcSources = new ArrayList<>();
+    private List<CircuitComponent> components = new ArrayList<>();
+    private CircuitComponent source;
 
     private final int MAX_ELEMENTS = 5;
     private boolean alertMaxElementsShown = false;
@@ -93,24 +92,12 @@ public class CircuitController {
         return components;
     }
 
-    public List<ACSource> getAcSources() {
-        return acSources;
-    }
-
-    public List<DCSource> getDcSources() {
-        return dcSources;
+    public CircuitComponent getSource() {
+        return source;
     }
 
     public Button getBtnSubmit() {
         return btnSubmit;
-    }
-
-    public HBox getHboxParallel() {
-        return hboxParallel;
-    }
-
-    public HBox getHboxSerial() {
-        return hboxSerial;
     }
 
     @FXML
@@ -207,14 +194,14 @@ public class CircuitController {
 
             // Kiểm tra giá trị của nguồn hợp lệ
             if (!checkSourceValid(acVoltageValue) || !checkSourceValid(acFrequencyValue)) {
-                showValidError("AC voltage and frequency must be greater than 0");
+                showValidError("AC voltage or frequency invalid");
                 throw new Exception("valid error");
             }
 
             // Kiểm tra chưa có phần tử nào
             if (components.isEmpty()) {
                 showValidError("No components added");
-                throw new Exception("No components added");
+                throw new Exception("no components added");
             }
 
             // Kiểm tra từng phần tử, xem phần tử nào không hợp lệ
@@ -226,14 +213,13 @@ public class CircuitController {
                 }
             }
 
-            CircuitComponent component = new CircuitComponent("acSource", "U", "V", acVoltageValue,
+            source = new CircuitComponent("acSource", "U", "V", acVoltageValue,
                     "Hz", acFrequencyValue);
-            components.add(component);
         } else if ("DC".equals(sourceType.getValue())) {
             String dcVoltageValue = dcVoltage.getText();
 
             if (!checkSourceValid(dcVoltageValue)) {
-                showValidError("DC voltage must be greater than 0");
+                showValidError("DC voltage invalid");
                 throw new Exception("valid error");
             }
 
@@ -250,8 +236,7 @@ public class CircuitController {
                 }
             }
 
-            CircuitComponent component = new CircuitComponent("dcSource", "U", "V", dcVoltageValue);
-            components.add(component);
+            source = new CircuitComponent("dcSource", "U", "V", dcVoltageValue);
         }
     }
 
@@ -283,11 +268,11 @@ public class CircuitController {
         elementContainer.getChildren()
                 .removeIf(node -> node instanceof HBox && "data error".equals(node.getUserData()));
 
-        HBox errorMessageHBox = new HBox(10);
-        errorMessageHBox.setUserData("data error");
+        HBox errorMessageBox = new HBox(10);
+        errorMessageBox.setUserData("data error");
         Label errorMessageLabel = new Label(message);
 
-        errorMessageHBox.getChildren().addAll(errorMessageLabel);
-        elementContainer.getChildren().add(errorMessageHBox);
+        errorMessageBox.getChildren().addAll(errorMessageLabel);
+        elementContainer.getChildren().add(errorMessageBox);
     }
 }
