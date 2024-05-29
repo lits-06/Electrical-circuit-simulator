@@ -181,7 +181,7 @@ public class CircuitController {
         // sẽ hiện thông báo lỗi, nếu sau đó người dùng thêm phần tử điện thì phải xóa
         // thông báo này rồi mới thêm phần tử
         elementContainer.getChildren()
-                .removeIf(node -> node instanceof HBox && "valid error".equals(node.getUserData()));
+                .removeIf(node -> node instanceof HBox && "data error".equals(node.getUserData()));
 
         HBox newElement = new HBox(10);
         Label nameLabel = new Label(elementName);
@@ -206,35 +206,19 @@ public class CircuitController {
             String acFrequencyValue = acFrequency.getText();
 
             if (!checkSourceValid(acVoltageValue) || !checkSourceValid(acFrequencyValue)) {
-                // Xóa thông báo lỗi trước đó, rôi mới thêm thông báo lỗi mới vào
-                // Dùng getUserData và setUserData để gắn dữ liệu cho node báo lỗi
-                // là "valid error"
-                elementContainer.getChildren()
-                        .removeIf(node -> node instanceof HBox && "valid error".equals(node.getUserData()));
-
-                HBox errorMessageHBox = new HBox(10);
-                errorMessageHBox.setUserData("valid error");
-                Label errorMessageLabel = new Label("AC voltage and frequency must be greater than 0");
-
-                errorMessageHBox.getChildren().addAll(errorMessageLabel);
-                elementContainer.getChildren().add(errorMessageHBox);
-
+                showValidError("AC voltage and frequency must be greater than 0");
                 throw new Exception("valid error");
+            }
+
+            if (components.isEmpty()) {
+                showValidError("No components added");
+                throw new Exception("No components added");
             }
 
             for (CircuitComponent component : components) {
                 String componentValue = component.getValue();
                 if (!checkComponentValid(componentValue)) {
-                    elementContainer.getChildren()
-                            .removeIf(node -> node instanceof HBox && "valid error".equals(node.getUserData()));
-
-                    HBox errorMessageHBox = new HBox(10);
-                    errorMessageHBox.setUserData("valid error");
-                    Label errorMessageLabel = new Label(component.getName() + " invalid value");
-
-                    errorMessageHBox.getChildren().addAll(errorMessageLabel);
-                    elementContainer.getChildren().add(errorMessageHBox);
-
+                    showValidError(component.getName() + " invalid value");
                     throw new Exception("valid error");
                 }
             }
@@ -246,31 +230,20 @@ public class CircuitController {
             String dcVoltageValue = dcVoltage.getText();
 
             if (!checkSourceValid(dcVoltageValue)) {
-                elementContainer.getChildren()
-                        .removeIf(node -> node instanceof HBox && "valid error".equals(node.getUserData()));
+                showValidError("DC voltage must be greater than 0");
+                throw new Exception("valid error");
+            }
 
-                HBox errorMessageHBox = new HBox(10);
-                errorMessageHBox.setUserData("valid error");
-                Label errorMessageLabel = new Label("AC voltage and frequency must be greater than 0");
-
-                errorMessageHBox.getChildren().addAll(errorMessageLabel);
-                elementContainer.getChildren().add(errorMessageHBox);
-                return;
+            if (components.isEmpty()) {
+                showValidError("No components added");
+                throw new Exception("No components added");
             }
 
             for (CircuitComponent component : components) {
                 String componentValue = component.getValue();
                 if (!checkComponentValid(componentValue)) {
-                    elementContainer.getChildren()
-                            .removeIf(node -> node instanceof HBox && "valid error".equals(node.getUserData()));
-
-                    HBox errorMessageHBox = new HBox(10);
-                    errorMessageHBox.setUserData("valid error");
-                    Label errorMessageLabel = new Label(component.getName() + " invalid value");
-
-                    errorMessageHBox.getChildren().addAll(errorMessageLabel);
-                    elementContainer.getChildren().add(errorMessageHBox);
-                    return;
+                    showValidError(component.getName() + " invalid value");
+                    throw new Exception("valid error");
                 }
             }
 
@@ -297,5 +270,20 @@ public class CircuitController {
         } catch (NumberFormatException e) {
             return false;
         }
+    }
+
+    private void showValidError(String message) {
+        // Xóa thông báo lỗi trước đó, rôi mới thêm thông báo lỗi mới vào
+        // Dùng getUserData và setUserData để gắn dữ liệu cho node báo lỗi
+        // là "data error"
+        elementContainer.getChildren()
+                .removeIf(node -> node instanceof HBox && "data error".equals(node.getUserData()));
+
+        HBox errorMessageHBox = new HBox(10);
+        errorMessageHBox.setUserData("data error");
+        Label errorMessageLabel = new Label(message);
+
+        errorMessageHBox.getChildren().addAll(errorMessageLabel);
+        elementContainer.getChildren().add(errorMessageHBox);
     }
 }
