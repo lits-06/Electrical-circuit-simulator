@@ -200,7 +200,7 @@ public class CircuitController {
     }
 
     @FXML
-    public void handleSubmit() throws IOException {
+    public void handleSubmit() throws Exception {
         if ("AC".equals(sourceType.getValue())) {
             String acVoltageValue = acVoltage.getText();
             String acFrequencyValue = acFrequency.getText();
@@ -218,7 +218,8 @@ public class CircuitController {
 
                 errorMessageHBox.getChildren().addAll(errorMessageLabel);
                 elementContainer.getChildren().add(errorMessageHBox);
-                return;
+
+                throw new Exception("valid error");
             }
 
             for (CircuitComponent component : components) {
@@ -233,7 +234,8 @@ public class CircuitController {
 
                     errorMessageHBox.getChildren().addAll(errorMessageLabel);
                     elementContainer.getChildren().add(errorMessageHBox);
-                    return;
+
+                    throw new Exception("valid error");
                 }
             }
 

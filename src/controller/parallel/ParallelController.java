@@ -16,19 +16,23 @@ public class ParallelController extends CircuitController {
         super.changeCircuitScene(event, "/fxml/serial/Serial.fxml");
     }
 
-    public void handleSubmit() throws IOException {
-        super.handleSubmit();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/parallel/ParallelResult.fxml"));
-        Parent newRoot = loader.load();
+    public void handleSubmit() throws Exception {
+        try {
+            super.handleSubmit();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/parallel/ParallelResult.fxml"));
+            Parent newRoot = loader.load();
 
-        ParallelResultController controller = loader.getController();
+            ParallelResultController controller = loader.getController();
 
-        // Truyền danh sách các thành phần vào controller của ParallelResult
-        controller.setupComponentTable();
-        controller.setComponents(getComponents());
+            // Truyền danh sách các thành phần vào controller của ParallelResult
+            controller.setupComponentTable();
+            controller.setComponents(getComponents());
 
-        Scene currentScene = getBtnSubmit().getScene();
-        currentScene.setRoot(newRoot);
+            Scene currentScene = getBtnSubmit().getScene();
+            currentScene.setRoot(newRoot);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }
