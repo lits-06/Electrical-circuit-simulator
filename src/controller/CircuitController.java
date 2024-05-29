@@ -177,16 +177,22 @@ public class CircuitController {
             return;
         }
 
+        // Trong trường hợp người dùng bấm submit khi chưa nhập đến tối đa số phần tử,
+        // sẽ hiện thông báo lỗi, nếu sau đó người dùng thêm phần tử điện thì phải xóa
+        // thông báo này rồi mới thêm phần tử
+        elementContainer.getChildren()
+                .removeIf(node -> node instanceof HBox && "valid error".equals(node.getUserData()));
+
         HBox newElement = new HBox(10);
         Label nameLabel = new Label(elementName);
         TextField parameterField = new TextField();
         Label itemUnit = new Label(elementUnit);
-        CircuitComponent component = new CircuitComponent(elementType, elementName, elementUnit, ""); // Tạo đối tượng
-                                                                                                      // mới
-        components.add(component); // Thêm vào danh sách
+
+        CircuitComponent component = new CircuitComponent(elementType, elementName, elementUnit, "");
+        components.add(component);
 
         parameterField.textProperty().addListener((observable, oldValue, newValue) -> {
-            component.setValue(newValue); // Cập nhật giá trị của thành phần khi giá trị thay đổi
+            component.setValue(newValue);
         });
 
         newElement.getChildren().addAll(nameLabel, parameterField, itemUnit);
@@ -198,14 +204,96 @@ public class CircuitController {
         if ("AC".equals(sourceType.getValue())) {
             String acVoltageValue = acVoltage.getText();
             String acFrequencyValue = acFrequency.getText();
-            CircuitComponent component = new CircuitComponent("acSource", "U", "V", acVoltageValue, "Hz",
-                    acFrequencyValue);
+
+            if (!checkSourceValid(acVoltageValue) || !checkSourceValid(acFrequencyValue)) {
+                // Xóa thông báo lỗi trước đó, rôi mới thêm thông báo lỗi mới vào
+                // Dùng getUserData và setUserData để gắn dữ liệu cho node báo lỗi
+                // là "valid error"
+                elementContainer.getChildren()
+                        .removeIf(node -> node instanceof HBox && "valid error".equals(node.getUserData()));
+
+                HBox errorMessageHBox = new HBox(10);
+                errorMessageHBox.setUserData("valid error");
+                Label errorMessageLabel = new Label("AC voltage and frequency must be greater than 0");
+
+                errorMessageHBox.getChildren().addAll(errorMessageLabel);
+                elementContainer.getChildren().add(errorMessageHBox);
+                return;
+            }
+
+            for (CircuitComponent component : components) {
+                String componentValue = component.getValue();
+                if (!checkComponentValid(componentValue)) {
+                    elementContainer.getChildren()
+                            .removeIf(node -> node instanceof HBox && "valid error".equals(node.getUserData()));
+
+                    HBox errorMessageHBox = new HBox(10);
+                    errorMessageHBox.setUserData("valid error");
+                    Label errorMessageLabel = new Label(component.getName() + " invalid value");
+
+                    errorMessageHBox.getChildren().addAll(errorMessageLabel);
+                    elementContainer.getChildren().add(errorMessageHBox);
+                    return;
+                }
+            }
+
+            CircuitComponent component = new CircuitComponent("acSource", "U", "V", acVoltageValue,
+                    "Hz", acFrequencyValue);
             components.add(component);
-        }
-        if ("DC".equals(sourceType.getValue())) {
+        } else if ("DC".equals(sourceType.getValue())) {
             String dcVoltageValue = dcVoltage.getText();
+
+            if (!checkSourceValid(dcVoltageValue)) {
+                elementContainer.getChildren()
+                        .removeIf(node -> node instanceof HBox && "valid error".equals(node.getUserData()));
+
+                HBox errorMessageHBox = new HBox(10);
+                errorMessageHBox.setUserData("valid error");
+                Label errorMessageLabel = new Label("AC voltage and frequency must be greater than 0");
+
+                errorMessageHBox.getChildren().addAll(errorMessageLabel);
+                elementContainer.getChildren().add(errorMessageHBox);
+                return;
+            }
+
+            for (CircuitComponent component : components) {
+                String componentValue = component.getValue();
+                if (!checkComponentValid(componentValue)) {
+                    elementContainer.getChildren()
+                            .removeIf(node -> node instanceof HBox && "valid error".equals(node.getUserData()));
+
+                    HBox errorMessageHBox = new HBox(10);
+                    errorMessageHBox.setUserData("valid error");
+                    Label errorMessageLabel = new Label(component.getName() + " invalid value");
+
+                    errorMessageHBox.getChildren().addAll(errorMessageLabel);
+                    elementContainer.getChildren().add(errorMessageHBox);
+                    return;
+                }
+            }
+
             CircuitComponent component = new CircuitComponent("dcSource", "U", "V", dcVoltageValue);
             components.add(component);
+        }
+    }
+
+    // Giá trị của DC, AC và frequency > 0
+    private boolean checkSourceValid(String sourceValue) {
+        try {
+            double numericValue = Double.parseDouble(sourceValue);
+            return numericValue > 0;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+    // Giá trị của R, L, C >= 0
+    private boolean checkComponentValid(String componentValue) {
+        try {
+            double numericValue = Double.parseDouble(componentValue);
+            return numericValue >= 0;
+        } catch (NumberFormatException e) {
+            return false;
         }
     }
 }
