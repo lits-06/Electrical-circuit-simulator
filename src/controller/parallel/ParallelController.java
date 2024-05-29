@@ -30,8 +30,7 @@ public class ParallelController extends CircuitController {
 
             Scene currentScene = getBtnSubmit().getScene();
             currentScene.setRoot(newRoot);
-        } catch (IOException e) {
-            // e.printStackTrace();
+        } catch (Exception e) {
             System.err.println("Error: invalid value" + e.getMessage());
         }
     }
