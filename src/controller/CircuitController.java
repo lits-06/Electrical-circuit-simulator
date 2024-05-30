@@ -66,6 +66,9 @@ public class CircuitController {
     private ObservableList<String> sourceItems;
 
     @FXML
+    private Button btnReset;
+
+    @FXML
     private Button btnSubmit;
 
     private int resistorCount = 0;
@@ -98,6 +101,22 @@ public class CircuitController {
 
     public Button getBtnSubmit() {
         return btnSubmit;
+    }
+
+    public VBox getElementContainer() {
+        return elementContainer;
+    }
+
+    public int getInductorCount() {
+        return inductorCount;
+    }
+
+    public int[] getComponentCounts() {
+        int[] counts = new int[3];
+        counts[0] = resistorCount;
+        counts[1] = capacitorCount;
+        counts[2] = inductorCount;
+        return counts;
     }
 
     @FXML
@@ -168,7 +187,7 @@ public class CircuitController {
         // sẽ hiện thông báo lỗi, nếu sau đó người dùng thêm phần tử điện thì phải xóa
         // thông báo này rồi mới thêm phần tử
         elementContainer.getChildren()
-                .removeIf(node -> node instanceof HBox && "data error".equals(node.getUserData()));
+                .removeIf(node -> node instanceof HBox && "error".equals(node.getUserData()));
 
         HBox newElement = new HBox(10);
         Label nameLabel = new Label(elementName);
@@ -187,28 +206,37 @@ public class CircuitController {
     }
 
     @FXML
+    public void handleReset() {
+        elementContainer.getChildren().removeIf(node -> node instanceof HBox);
+        components.clear();
+        resistorCount = 0;
+        capacitorCount = 0;
+        inductorCount = 0;
+    }
+
+    @FXML
     public void handleSubmit() throws Exception {
         if ("AC".equals(sourceType.getValue())) {
             String acVoltageValue = acVoltage.getText();
             String acFrequencyValue = acFrequency.getText();
 
             // Kiểm tra giá trị của nguồn hợp lệ
-            if (!checkSourceValid(acVoltageValue) || !checkSourceValid(acFrequencyValue)) {
-                showValidError("AC voltage or frequency invalid");
+            if (!checkValid(acVoltageValue) || !checkValid(acFrequencyValue)) {
+                showError("AC voltage or frequency invalid");
                 throw new Exception("valid error");
             }
 
             // Kiểm tra chưa có phần tử nào
             if (components.isEmpty()) {
-                showValidError("No components added");
+                showError("No components added");
                 throw new Exception("no components added");
             }
 
             // Kiểm tra từng phần tử, xem phần tử nào không hợp lệ
             for (CircuitComponent component : components) {
                 String componentValue = component.getValue();
-                if (!checkComponentValid(componentValue)) {
-                    showValidError(component.getName() + " invalid value");
+                if (!checkValid(componentValue)) {
+                    showError(component.getName() + " invalid value");
                     throw new Exception("valid error");
                 }
             }
@@ -218,20 +246,20 @@ public class CircuitController {
         } else if ("DC".equals(sourceType.getValue())) {
             String dcVoltageValue = dcVoltage.getText();
 
-            if (!checkSourceValid(dcVoltageValue)) {
-                showValidError("DC voltage invalid");
+            if (!checkValid(dcVoltageValue)) {
+                showError("DC voltage invalid");
                 throw new Exception("valid error");
             }
 
             if (components.isEmpty()) {
-                showValidError("No components added");
+                showError("No components added");
                 throw new Exception("No components added");
             }
 
             for (CircuitComponent component : components) {
                 String componentValue = component.getValue();
-                if (!checkComponentValid(componentValue)) {
-                    showValidError(component.getName() + " invalid value");
+                if (!checkValid(componentValue)) {
+                    showError(component.getName() + " invalid value");
                     throw new Exception("valid error");
                 }
             }
@@ -241,35 +269,25 @@ public class CircuitController {
     }
 
     // Giá trị của DC, AC và frequency > 0
-    private boolean checkSourceValid(String sourceValue) {
+    private boolean checkValid(String value) {
         try {
-            double numericValue = Double.parseDouble(sourceValue);
+            double numericValue = Double.parseDouble(value);
             return numericValue > 0;
         } catch (NumberFormatException e) {
             return false;
         }
     }
 
-    // Giá trị của R, L, C >= 0
-    private boolean checkComponentValid(String componentValue) {
-        try {
-            double numericValue = Double.parseDouble(componentValue);
-            return numericValue >= 0;
-        } catch (NumberFormatException e) {
-            return false;
-        }
-    }
-
     // Hiển thị lỗi trong giao diện trước khi chuyển sang giao diện xử lí mạch
-    private void showValidError(String message) {
-        // Xóa thông báo lỗi trước đó, rôi mới thêm thông báo lỗi mới vào
+    protected void showError(String message) {
+        // Xóa thông báo lỗi trước đó, rôi mới thêm thông báo lỗi mới vào.
         // Dùng getUserData và setUserData để gắn dữ liệu cho node báo lỗi
-        // là "data error"
+        // là "error"
         elementContainer.getChildren()
-                .removeIf(node -> node instanceof HBox && "data error".equals(node.getUserData()));
+                .removeIf(node -> node instanceof HBox && "error".equals(node.getUserData()));
 
         HBox errorMessageBox = new HBox(10);
-        errorMessageBox.setUserData("data error");
+        errorMessageBox.setUserData("error");
         Label errorMessageLabel = new Label(message);
 
         errorMessageBox.getChildren().addAll(errorMessageLabel);

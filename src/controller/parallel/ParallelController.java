@@ -19,6 +19,7 @@ public class ParallelController extends CircuitController {
     public void handleSubmit() throws Exception {
         try {
             super.handleSubmit();
+            checkShortCircuit();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/parallel/ParallelResult.fxml"));
             Parent newRoot = loader.load();
 
@@ -28,6 +29,9 @@ public class ParallelController extends CircuitController {
             controller.setupComponentTable();
             controller.setComponents(getComponents());
             controller.setSource(getSource());
+            controller.setComponentCounts(getComponentCounts());
+
+            controller.displayComponentValues();
 
             Scene currentScene = getBtnSubmit().getScene();
             currentScene.setRoot(newRoot);
@@ -36,4 +40,10 @@ public class ParallelController extends CircuitController {
         }
     }
 
+    private void checkShortCircuit() throws Exception {
+        if ("dcSource".equals(super.getSource().getType()) && super.getInductorCount() > 0) {
+            super.showError("Short circuit");
+            throw new Exception("short circuit");
+        }
+    }
 }

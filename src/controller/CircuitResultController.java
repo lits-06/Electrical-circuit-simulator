@@ -9,8 +9,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -20,7 +23,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public abstract class CircuitResultController {
+public class CircuitResultController {
     @FXML
     private HBox resistorControl;
 
@@ -69,10 +72,17 @@ public abstract class CircuitResultController {
     @FXML
     private TableColumn<CircuitComponent, String> resistanceColumn;
     private int countPosition = 0;
+    private int resistorCount;
+    private int capacitorCount;
+    private int inductorCount;
     private List<CircuitComponent> components;
     private CircuitComponent source;
 
-    public List<CircuitComponent> getComoponents() {
+    public TableView<CircuitComponent> getComponentTable() {
+        return componentTable;
+    }
+
+    public List<CircuitComponent> getComponents() {
         return components;
     }
 
@@ -82,6 +92,10 @@ public abstract class CircuitResultController {
 
     public HBox getLineEndControl() {
         return lineEndControl;
+    }
+
+    public int getCapacitorCount() {
+        return capacitorCount;
     }
 
     public void setupComponentTable() {
@@ -99,6 +113,12 @@ public abstract class CircuitResultController {
     public void setSource(CircuitComponent source) {
         this.source = source;
         updateSourceVisibility();
+    }
+
+    public void setComponentCounts(int[] counts) {
+        this.resistorCount = counts[0];
+        this.capacitorCount = counts[1];
+        this.inductorCount = counts[2];
     }
 
     private void displayComponentValues() {
@@ -175,7 +195,6 @@ public abstract class CircuitResultController {
                 Label voltageLabel = new Label(source.getValue() + " " + source.getUnit());
                 voltageLabel.setStyle("-fx-font-family: 'Arial Rounded MT Bold'; -fx-font-size: 20px;");
                 componentPowerSource.getChildren().addAll(voltageLabel);
-
             }
             case "acSource" -> {
                 Label voltageLabel = new Label(source.getValue() + " " + source.getUnit());
@@ -186,5 +205,4 @@ public abstract class CircuitResultController {
             }
         }
     }
-
 }

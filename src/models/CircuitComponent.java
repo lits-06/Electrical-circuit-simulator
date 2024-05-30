@@ -56,4 +56,27 @@ public class CircuitComponent {
         this.value = value;
     }
 
+    public void setResistance(String resistance) {
+        this.resistance = resistance;
+    }
+
+    public void setVoltage(String voltage) {
+        this.voltage = voltage;
+    }
+
+    public void setCurrent(String current) {
+        this.current = current;
+    }
+
+    public String getResistance() {
+        return resistance;
+    }
+
+    public String getVoltage() {
+        return voltage;
+    }
+
+    public String getCurrent() {
+        return current;
+    }
 }
