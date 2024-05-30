@@ -11,36 +11,39 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class ParallelController extends CircuitController {
+
     public void changeCircuitScene(MouseEvent event) throws Exception {
-        super.changeCircuitScene(event);
-        FXMLLoader loader;
-        if (event.getSource() == getHboxSerial()) {
-            loader = new FXMLLoader(getClass().getResource("/fxml/serial/Serial.fxml"));
-        } else {
-            return;
+        super.changeCircuitScene(event, "/fxml/serial/Serial.fxml");
+    }
+
+    public void handleSubmit() throws Exception {
+        try {
+            super.handleSubmit();
+            checkShortCircuit();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/parallel/ParallelResult.fxml"));
+            Parent newRoot = loader.load();
+
+            ParallelResultController controller = loader.getController();
+
+            // Truyền danh sách các thành phần vào controller của ParallelResult
+            controller.setupComponentTable();
+            controller.setComponents(getComponents());
+            controller.setSource(getSource());
+            controller.setComponentCounts(getComponentCounts());
+
+            controller.displayComponentValues();
+
+            Scene currentScene = getBtnSubmit().getScene();
+            currentScene.setRoot(newRoot);
+        } catch (Exception e) {
+            System.err.println("Error: " + e.getMessage());
         }
-
-        Parent newRoot = loader.load();
-
-        Stage stage = (Stage) ((HBox) event.getSource()).getScene().getWindow();
-        Scene newScene = new Scene(newRoot);
-        stage.setScene(newScene);
-        stage.show();
     }
 
-    public void handleSubmit() throws IOException {
-        super.handleSubmit();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/parallel/ParallelResult.fxml"));
-        Parent newRoot = loader.load();
-
-        ParallelResultController controller = loader.getController();
-
-        // Truyền danh sách các thành phần vào controller của ParallelResult
-        controller.setupComponentTable();
-        controller.setComponents(getComponents());
-
-        Scene currentScene = getBtnSubmit().getScene();
-        currentScene.setRoot(newRoot);
+    private void checkShortCircuit() throws Exception {
+        if ("dcSource".equals(super.getSource().getType()) && super.getInductorCount() > 0) {
+            super.showError("Short circuit");
+            throw new Exception("short circuit");
+        }
     }
-
 }

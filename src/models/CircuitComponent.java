@@ -8,6 +8,10 @@ public class CircuitComponent {
     private String value2 = null;
     private String unit2 = null;
 
+    private String resistance;
+    private String voltage;
+    private String current;
+
     public CircuitComponent(String type, String name, String unit, String value) {
         this.type = type;
         this.name = name;
@@ -52,4 +56,27 @@ public class CircuitComponent {
         this.value = value;
     }
 
+    public void setResistance(String resistance) {
+        this.resistance = resistance;
+    }
+
+    public void setVoltage(String voltage) {
+        this.voltage = voltage;
+    }
+
+    public void setCurrent(String current) {
+        this.current = current;
+    }
+
+    public String getResistance() {
+        return resistance;
+    }
+
+    public String getVoltage() {
+        return voltage;
+    }
+
+    public String getCurrent() {
+        return current;
+    }
 }

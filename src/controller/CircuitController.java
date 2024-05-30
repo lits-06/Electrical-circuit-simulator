@@ -3,6 +3,9 @@ package controller;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
@@ -10,6 +13,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import models.ACSource;
 import models.CircuitComponent;
 import models.DCSource;
@@ -62,14 +66,16 @@ public class CircuitController {
     private ObservableList<String> sourceItems;
 
     @FXML
+    private Button btnReset;
+
+    @FXML
     private Button btnSubmit;
 
     private int resistorCount = 0;
     private int capacitorCount = 0;
     private int inductorCount = 0;
-    List<CircuitComponent> components = new ArrayList<>();
-    List<ACSource> acSources = new ArrayList<>();
-    List<DCSource> dcSources = new ArrayList<>();
+    private List<CircuitComponent> components = new ArrayList<>();
+    private CircuitComponent source;
 
     private final int MAX_ELEMENTS = 5;
     private boolean alertMaxElementsShown = false;
@@ -79,34 +85,49 @@ public class CircuitController {
         sourceItems = FXCollections.observableArrayList("AC", "DC");
 
         sourceType.setItems(sourceItems);
+
+        sourceType.setValue("DC");
+        dcVoltage.setVisible(true);
+        voltageUnit.setVisible(true);
     }
 
     public List<CircuitComponent> getComponents() {
         return components;
     }
 
-    public List<ACSource> getAcSources() {
-        return acSources;
-    }
-
-    public List<DCSource> getDcSources() {
-        return dcSources;
+    public CircuitComponent getSource() {
+        return source;
     }
 
     public Button getBtnSubmit() {
         return btnSubmit;
     }
 
-    public HBox getHboxParallel() {
-        return hboxParallel;
+    public VBox getElementContainer() {
+        return elementContainer;
     }
 
-    public HBox getHboxSerial() {
-        return hboxSerial;
+    public int getInductorCount() {
+        return inductorCount;
+    }
+
+    public int[] getComponentCounts() {
+        int[] counts = new int[3];
+        counts[0] = resistorCount;
+        counts[1] = capacitorCount;
+        counts[2] = inductorCount;
+        return counts;
     }
 
     @FXML
-    public void changeCircuitScene(MouseEvent event) throws Exception {
+    public void changeCircuitScene(MouseEvent event, String fxmlPath) throws Exception {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+        Parent newRoot = loader.load();
+
+        Stage stage = (Stage) ((HBox) event.getSource()).getScene().getWindow();
+        Scene newScene = new Scene(newRoot);
+        stage.setScene(newScene);
+        stage.show();
     }
 
     @FXML
@@ -129,7 +150,6 @@ public class CircuitController {
             hzUnit.setVisible(true);
 
             dcVoltage.setVisible(false);
-
         }
     }
 
@@ -163,34 +183,114 @@ public class CircuitController {
             return;
         }
 
+        // Trong trường hợp người dùng bấm submit khi chưa nhập đến tối đa số phần tử,
+        // sẽ hiện thông báo lỗi, nếu sau đó người dùng thêm phần tử điện thì phải xóa
+        // thông báo này rồi mới thêm phần tử
+        elementContainer.getChildren()
+                .removeIf(node -> node instanceof HBox && "error".equals(node.getUserData()));
+
         HBox newElement = new HBox(10);
         Label nameLabel = new Label(elementName);
         TextField parameterField = new TextField();
         Label itemUnit = new Label(elementUnit);
-        CircuitComponent component = new CircuitComponent(elementType, elementName, elementUnit, ""); // Tạo đối tượng mới
-        components.add(component); // Thêm vào danh sách
+
+        CircuitComponent component = new CircuitComponent(elementType, elementName, elementUnit, "");
+        components.add(component);
 
         parameterField.textProperty().addListener((observable, oldValue, newValue) -> {
-            component.setValue(newValue); // Cập nhật giá trị của thành phần khi giá trị thay đổi
+            component.setValue(newValue);
         });
-
 
         newElement.getChildren().addAll(nameLabel, parameterField, itemUnit);
         elementContainer.getChildren().add(newElement);
     }
 
     @FXML
-    public void handleSubmit() throws IOException {
+    public void handleReset() {
+        elementContainer.getChildren().removeIf(node -> node instanceof HBox);
+        components.clear();
+        resistorCount = 0;
+        capacitorCount = 0;
+        inductorCount = 0;
+    }
+
+    @FXML
+    public void handleSubmit() throws Exception {
         if ("AC".equals(sourceType.getValue())) {
             String acVoltageValue = acVoltage.getText();
             String acFrequencyValue = acFrequency.getText();
-            CircuitComponent component = new CircuitComponent("acSource", "U", "V", acVoltageValue, "Hz", acFrequencyValue);
-            components.add(component);
-        }
-        if ("DC".equals(sourceType.getValue())) {
+
+            // Kiểm tra giá trị của nguồn hợp lệ
+            if (!checkValid(acVoltageValue) || !checkValid(acFrequencyValue)) {
+                showError("AC voltage or frequency invalid");
+                throw new Exception("valid error");
+            }
+
+            // Kiểm tra chưa có phần tử nào
+            if (components.isEmpty()) {
+                showError("No components added");
+                throw new Exception("no components added");
+            }
+
+            // Kiểm tra từng phần tử, xem phần tử nào không hợp lệ
+            for (CircuitComponent component : components) {
+                String componentValue = component.getValue();
+                if (!checkValid(componentValue)) {
+                    showError(component.getName() + " invalid value");
+                    throw new Exception("valid error");
+                }
+            }
+
+            source = new CircuitComponent("acSource", "U", "V", acVoltageValue,
+                    "Hz", acFrequencyValue);
+        } else if ("DC".equals(sourceType.getValue())) {
             String dcVoltageValue = dcVoltage.getText();
-            CircuitComponent component = new CircuitComponent("dcSource", "U", "V", dcVoltageValue);
-            components.add(component);
+
+            if (!checkValid(dcVoltageValue)) {
+                showError("DC voltage invalid");
+                throw new Exception("valid error");
+            }
+
+            if (components.isEmpty()) {
+                showError("No components added");
+                throw new Exception("No components added");
+            }
+
+            for (CircuitComponent component : components) {
+                String componentValue = component.getValue();
+                if (!checkValid(componentValue)) {
+                    showError(component.getName() + " invalid value");
+                    throw new Exception("valid error");
+                }
+            }
+
+            source = new CircuitComponent("dcSource", "U", "V", dcVoltageValue);
         }
+    }
+
+    // Giá trị của DC, AC và frequency > 0
+    private boolean checkValid(String value) {
+        try {
+            double numericValue = Double.parseDouble(value);
+            return numericValue > 0;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+    // Hiển thị lỗi trong giao diện trước khi chuyển sang giao diện xử lí mạch
+    protected void showError(String message) {
+        // Xóa thông báo lỗi trước đó, rôi mới thêm thông báo lỗi mới vào.
+        // Dùng getUserData và setUserData để gắn dữ liệu cho node báo lỗi
+        // là "error"
+        elementContainer.getChildren()
+                .removeIf(node -> node instanceof HBox && "error".equals(node.getUserData()));
+
+        HBox errorMessageBox = new HBox(10);
+        errorMessageBox.setUserData("error");
+        Label errorMessageLabel = new Label(message);
+
+        errorMessageBox.getChildren().addAll(errorMessageLabel);
+        elementContainer.getChildren().add(errorMessageBox);
     }
 }
