@@ -1,27 +1,19 @@
 package controller;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import models.CircuitComponent;
 
-import java.net.URL;
 import java.util.List;
-import java.util.ResourceBundle;
 
 public class CircuitResultController {
     @FXML
@@ -121,11 +113,6 @@ public class CircuitResultController {
         this.inductorCount = counts[2];
     }
 
-    private void displayComponentValues() {
-        ObservableList<CircuitComponent> componentList = FXCollections.observableArrayList(components);
-        componentTable.setItems(componentList);
-    }
-
     @FXML
     private void handleBackClick() throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Home.fxml"));
@@ -147,35 +134,18 @@ public class CircuitResultController {
             componentBox.getChildren().addAll(valueLabel, unitLabel);
 
             switch (component.getType()) {
-                case "Resistor" -> {
-                    resistorControl.getChildren().get(countPosition).setVisible(true);
-                }
-                case "Capacitor" -> {
-                    capacitorControl.getChildren().get(countPosition).setVisible(true);
-                }
-                case "Inductor" -> {
-                    inductorControl.getChildren().get(countPosition).setVisible(true);
-                }
+                case "Resistor" -> resistorControl.getChildren().get(countPosition).setVisible(true);
+                case "Capacitor" -> capacitorControl.getChildren().get(countPosition).setVisible(true);
+                case "Inductor" -> inductorControl.getChildren().get(countPosition).setVisible(true);
             }
 
             switch (countPosition) {
-                case 0 -> {
-                    component1.getChildren().addAll(nameLabel, componentBox);
-                }
-                case 1 -> {
-                    component2.getChildren().addAll(nameLabel, componentBox);
-                }
-                case 2 -> {
-                    component3.getChildren().addAll(nameLabel, componentBox);
-                }
-                case 3 -> {
-                    component4.getChildren().addAll(nameLabel, componentBox);
-                }
-                case 4 -> {
-                    component5.getChildren().addAll(nameLabel, componentBox);
-                }
+                case 0 -> component1.getChildren().addAll(nameLabel, componentBox);
+                case 1 -> component2.getChildren().addAll(nameLabel, componentBox);
+                case 2 -> component3.getChildren().addAll(nameLabel, componentBox);
+                case 3 -> component4.getChildren().addAll(nameLabel, componentBox);
+                case 4 -> component5.getChildren().addAll(nameLabel, componentBox);
             }
-
             countPosition++;
         }
     }

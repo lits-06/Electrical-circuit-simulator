@@ -61,11 +61,12 @@ public class SerialResultController extends CircuitResultController {
                 double I = voltageSource / Req;
 
                 for (CircuitComponent component : super.getComponents()) {
+                    double current;
                     switch (component.getType()) {
                         case "Resistor" -> {
                             double resistance = Double.parseDouble(component.getValue());
                             double voltage = voltageSource / Req * resistance;
-                            double current = I;
+                            current = I;
 
                             component.setResistance(String.valueOf(resistance));
                             component.setVoltage(String.valueOf(voltage));
@@ -74,7 +75,7 @@ public class SerialResultController extends CircuitResultController {
                         case "Inductor" -> {
                             double resistance = 0;
                             double voltage = 0;
-                            double current = I;
+                            current = I;
 
                             component.setResistance(String.valueOf(resistance));
                             component.setVoltage(String.valueOf(voltage));
@@ -89,11 +90,12 @@ public class SerialResultController extends CircuitResultController {
             double I = voltageSource / Req;
 
             for (CircuitComponent component : super.getComponents()) {
+                double current;
                 switch (component.getType()) {
                     case "Resistor" -> {
                         double resistance = Double.parseDouble(component.getValue());
                         double voltage = voltageSource / Req * resistance;
-                        double current = I;
+                        current = I;
 
                         component.setResistance(String.valueOf(resistance));
                         component.setVoltage(String.valueOf(voltage));
@@ -103,7 +105,7 @@ public class SerialResultController extends CircuitResultController {
                         double C = Double.parseDouble(component.getValue()) / Math.pow(10, 6);
                         double resistance = 1 / (omega * C);
                         double voltage = voltageSource / Req * resistance;
-                        double current = I;
+                        current = I;
 
                         component.setResistance(String.valueOf(resistance));
                         component.setVoltage(String.valueOf(voltage));
@@ -113,7 +115,7 @@ public class SerialResultController extends CircuitResultController {
                         double L = Double.parseDouble(component.getValue()) / Math.pow(10, 6);
                         double resistance = omega * L;
                         double voltage = voltageSource / Req * resistance;
-                        double current = I;
+                        current = I;
 
                         component.setResistance(String.valueOf(resistance));
                         component.setVoltage(String.valueOf(voltage));
@@ -138,7 +140,7 @@ public class SerialResultController extends CircuitResultController {
 
     public double calculateEquivalentResistance() {
         double omega = 2 * 3.14 * Double.parseDouble(super.getSource().getValue2());
-        double Req = 0;
+        double Req;
         double R = 0;
         double Zc = 0;
         double Zl = 0;

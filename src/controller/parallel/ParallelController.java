@@ -5,10 +5,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
-import javafx.stage.Stage;
-
-import java.io.IOException;
 
 public class ParallelController extends CircuitController {
 
@@ -16,7 +12,7 @@ public class ParallelController extends CircuitController {
         super.changeCircuitScene(event, "/fxml/serial/Serial.fxml");
     }
 
-    public void handleSubmit() throws Exception {
+    public void handleSubmit() {
         try {
             super.handleSubmit();
             checkShortCircuit();

@@ -11,10 +11,11 @@ public class ParallelResultController extends CircuitResultController {
 
         if ("dcSource".equals(super.getSource().getType())) {
             for (CircuitComponent component : super.getComponents()) {
+                double voltage;
                 switch (component.getType()) {
                     case "Resistor" -> {
                         double resistance = Double.parseDouble(component.getValue());
-                        double voltage = voltageSource;
+                        voltage = voltageSource;
                         double current = voltage / resistance;
 
                         component.setResistance(String.valueOf(resistance));
@@ -23,7 +24,7 @@ public class ParallelResultController extends CircuitResultController {
                     }
                     case "Capacitor" -> {
                         String resistance = "∞";
-                        double voltage = voltageSource;
+                        voltage = voltageSource;
                         String current = "0";
 
                         component.setResistance(resistance);
@@ -36,11 +37,14 @@ public class ParallelResultController extends CircuitResultController {
             double omega = 2 * 3.14 * Double.parseDouble(super.getSource().getValue2());
 
             for (CircuitComponent component : super.getComponents()) {
+                double resistance;
+                double voltage;
+                double current;
                 switch (component.getType()) {
                     case "Resistor" -> {
-                        double resistance = Double.parseDouble(component.getValue());
-                        double voltage = voltageSource;
-                        double current = voltage / resistance;
+                        resistance = Double.parseDouble(component.getValue());
+                        voltage = voltageSource;
+                        current = voltage / resistance;
 
                         component.setResistance(String.valueOf(resistance));
                         component.setVoltage(String.valueOf(voltage));
@@ -48,9 +52,9 @@ public class ParallelResultController extends CircuitResultController {
                     }
                     case "Capacitor" -> {
                         double C = Double.parseDouble(component.getValue()) / Math.pow(10, 6);
-                        double resistance = 1 / (omega * C);
-                        double voltage = voltageSource;
-                        double current = voltage / resistance;
+                        resistance = 1 / (omega * C);
+                        voltage = voltageSource;
+                        current = voltage / resistance;
 
                         component.setResistance(String.valueOf(resistance));
                         component.setVoltage(String.valueOf(voltage));
@@ -58,9 +62,9 @@ public class ParallelResultController extends CircuitResultController {
                     }
                     case "Inductor" -> {
                         double L = Double.parseDouble(component.getValue()) / Math.pow(10, 6);
-                        double resistance = omega * L;
-                        double voltage = voltageSource;
-                        double current = voltage / resistance;
+                        resistance = omega * L;
+                        voltage = voltageSource;
+                        current = voltage / resistance;
 
                         component.setResistance(String.valueOf(resistance));
                         component.setVoltage(String.valueOf(voltage));
