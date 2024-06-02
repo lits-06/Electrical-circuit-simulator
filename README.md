@@ -5,7 +5,7 @@
 - 20220072 - Đoàn Tiến Dũng
 - 20225996 - Phạm Trường Sang
 - 20226067 - Đinh Xuân Toàn
-- 2022xxxx - Nguyễn Bách
+- 20226014 - Nguyễn Trọng Bách
 
 
 ## Cấu hình JavaFX
