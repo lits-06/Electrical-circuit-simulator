@@ -14,33 +14,12 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import models.ACSource;
 import models.CircuitComponent;
-import models.DCSource;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CircuitController {
-
-    @FXML
-    private HBox hboxParallel;
-
-    @FXML
-    private HBox hboxSerial;
-
-    @FXML
-    private Label parallelLabel;
-
-    @FXML
-    private Label serialLabel;
-
-    @FXML
-    private HBox sourceInfo;
-
-    @FXML
-    private VBox elementInfo;
 
     @FXML
     private TextField dcVoltage;
@@ -66,9 +45,6 @@ public class CircuitController {
     private ObservableList<String> sourceItems;
 
     @FXML
-    private Button btnReset;
-
-    @FXML
     private Button btnSubmit;
 
     private int resistorCount = 0;
@@ -82,7 +58,7 @@ public class CircuitController {
 
     @FXML
     void initialize() {
-        sourceItems = FXCollections.observableArrayList("AC", "DC");
+        sourceItems = FXCollections.observableArrayList("DC", "AC");
 
         sourceType.setItems(sourceItems);
 
@@ -101,10 +77,6 @@ public class CircuitController {
 
     public Button getBtnSubmit() {
         return btnSubmit;
-    }
-
-    public VBox getElementContainer() {
-        return elementContainer;
     }
 
     public int getInductorCount() {
