@@ -1,5 +1,7 @@
 # Java OOP Project: Electrical circuit simulator
 
+Video demo: [link](https://drive.google.com/file/d/11A362De3suebQJKuQ4NbDIQ-95U3rnX-/view)
+
 ## Danh sách thành viên
 
 - 20220072 - Đoàn Tiến Dũng
