@@ -15,7 +15,7 @@ import models.CircuitComponent;
 
 import java.util.List;
 
-public class CircuitResultController {
+public abstract class CircuitResultController {
     @FXML
     private HBox resistorControl;
 
@@ -27,6 +27,9 @@ public class CircuitResultController {
 
     @FXML
     private Button btnBack;
+
+    @FXML
+    private Button btnHome;
 
     @FXML
     private VBox componentPowerSource;
@@ -48,6 +51,12 @@ public class CircuitResultController {
 
     @FXML
     private HBox lineEndControl;
+
+    @FXML
+    private HBox ACController;
+
+    @FXML
+    private HBox DCController;
 
     @FXML
     private TableView<CircuitComponent> componentTable;
@@ -115,10 +124,19 @@ public class CircuitResultController {
 
     @FXML
     private void handleBackClick() throws Exception {
+//        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Home.fxml"));
+//        Parent newRoot = loader.load();
+//
+//        Scene currentScene = btnBack.getScene();
+//        currentScene.setRoot(newRoot);
+    }
+
+    @FXML
+    private void handleHomeClick() throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Home.fxml"));
         Parent newRoot = loader.load();
 
-        Scene currentScene = btnBack.getScene();
+        Scene currentScene = btnHome.getScene();
         currentScene.setRoot(newRoot);
     }
 
@@ -165,6 +183,7 @@ public class CircuitResultController {
                 Label voltageLabel = new Label(source.getValue() + " " + source.getUnit());
                 voltageLabel.setStyle("-fx-font-family: 'Arial Rounded MT Bold'; -fx-font-size: 20px;");
                 componentPowerSource.getChildren().addAll(voltageLabel);
+                DCController.setVisible(true);
             }
             case "acSource" -> {
                 Label voltageLabel = new Label(source.getValue() + " " + source.getUnit());
@@ -172,6 +191,7 @@ public class CircuitResultController {
                 voltageLabel.setStyle("-fx-font-family: 'Arial Rounded MT Bold'; -fx-font-size: 20px;");
                 frequencyLabel.setStyle("-fx-font-family: 'Arial Rounded MT Bold'; -fx-font-size: 20px;");
                 componentPowerSource.getChildren().addAll(voltageLabel, frequencyLabel);
+                ACController.setVisible(true);
             }
         }
     }

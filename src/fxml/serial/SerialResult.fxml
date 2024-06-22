@@ -6,79 +6,66 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="648.0"
-            prefWidth="936.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="controller.serial.SerialResultController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="648.0" prefWidth="936.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.serial.SerialResultController">
     <children>
 
-        <Text fx:id="title" layoutX="345.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0"
-              text="Simulation Result" textAlignment="CENTER">
+        <Text fx:id="title" layoutX="345.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Simulation Result" textAlignment="CENTER">
             <font>
-                <Font size="30.0"/>
+                <Font size="30.0" />
             </font>
         </Text>
         <Group fx:id="circuit" layoutY="40.0">
             <children>
-                <fx:include source="../PowerSource.fxml"/>
-                <HBox fx:id="resistorControl" layoutX="-276.0" layoutY="78.0" maxHeight="-Infinity" maxWidth="-Infinity"
-                      minHeight="-Infinity" minWidth="-Infinity" prefHeight="648.0" prefWidth="936.0">
+                <HBox fx:id="ACController" prefHeight="100.0" prefWidth="200.0" visible="false">
                     <children>
-                        <fx:include fx:id="resistor1" layoutX="-276.0" layoutY="78.0" source="Resistor.fxml"
-                                    translateX="243.0" translateY="-189.0" visible="false"/>
-                        <fx:include fx:id="resistor2" layoutX="-146.0" layoutY="78.0" source="Resistor.fxml"
-                                    translateX="-564.0" translateY="-189.0" visible="false"/>
-                        <fx:include fx:id="resistor3" layoutX="-16.0" layoutY="78.0" source="Resistor.fxml"
-                                    translateX="-1371.0" translateY="-189.0" visible="false"/>
-                        <fx:include fx:id="resistor4" layoutX="114.0" layoutY="78.0" source="Resistor.fxml"
-                                    translateX="-2178.0" translateY="-189.0" visible="false"/>
-                        <fx:include fx:id="resistor5" layoutX="244.0" layoutY="78.0" source="Resistor.fxml"
-                                    translateX="-2985.0" translateY="-189.0" visible="false"/>
+                        <fx:include fx:id="ACSource" source="../ACPowerSource.fxml" />
+                    </children>
+                </HBox>
+
+                <HBox fx:id="DCController" prefHeight="100.0" prefWidth="200.0" visible="false">
+                    <children>
+                        <fx:include fx:id="DCSource" source="../DCPowerSource.fxml" />
+                    </children>
+                </HBox>
+
+                <HBox fx:id="resistorControl" layoutX="-276.0" layoutY="78.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="648.0" prefWidth="936.0">
+                    <children>
+                        <fx:include fx:id="resistor1" layoutX="-276.0" layoutY="78.0" source="Resistor.fxml" translateX="243.0" translateY="-189.0" visible="false" />
+                        <fx:include fx:id="resistor2" layoutX="-146.0" layoutY="78.0" source="Resistor.fxml" translateX="-564.0" translateY="-189.0" visible="false" />
+                        <fx:include fx:id="resistor3" layoutX="-16.0" layoutY="78.0" source="Resistor.fxml" translateX="-1371.0" translateY="-189.0" visible="false" />
+                        <fx:include fx:id="resistor4" layoutX="114.0" layoutY="78.0" source="Resistor.fxml" translateX="-2178.0" translateY="-189.0" visible="false" />
+                        <fx:include fx:id="resistor5" layoutX="244.0" layoutY="78.0" source="Resistor.fxml" translateX="-2985.0" translateY="-189.0" visible="false" />
                     </children>
                 </HBox>
 
                 <HBox fx:id="capacitorControl" layoutX="-276.0" layoutY="78.0">
                     <children>
-                        <fx:include fx:id="capacitor1" layoutX="-276.0" layoutY="78.0" source="Capacitor.fxml"
-                                    translateX="243.0" translateY="-189.0" visible="false"/>
-                        <fx:include fx:id="capacitor2" layoutX="-146.0" layoutY="78.0" source="Capacitor.fxml"
-                                    translateX="-564.0" translateY="-189.0" visible="false"/>
-                        <fx:include fx:id="capacitor3" layoutX="-16.0" layoutY="78.0" source="Capacitor.fxml"
-                                    translateX="-1371.0" translateY="-189.0" visible="false"/>
-                        <fx:include fx:id="capacitor4" layoutX="114.0" layoutY="78.0" source="Capacitor.fxml"
-                                    translateX="-2178.0" translateY="-189.0" visible="false"/>
-                        <fx:include fx:id="capacitor5" layoutX="244.0" layoutY="78.0" source="Capacitor.fxml"
-                                    translateX="-2985.0" translateY="-189.0" visible="false"/>
+                        <fx:include fx:id="capacitor1" layoutX="-276.0" layoutY="78.0" source="Capacitor.fxml" translateX="243.0" translateY="-189.0" visible="false" />
+                        <fx:include fx:id="capacitor2" layoutX="-146.0" layoutY="78.0" source="Capacitor.fxml" translateX="-564.0" translateY="-189.0" visible="false" />
+                        <fx:include fx:id="capacitor3" layoutX="-16.0" layoutY="78.0" source="Capacitor.fxml" translateX="-1371.0" translateY="-189.0" visible="false" />
+                        <fx:include fx:id="capacitor4" layoutX="114.0" layoutY="78.0" source="Capacitor.fxml" translateX="-2178.0" translateY="-189.0" visible="false" />
+                        <fx:include fx:id="capacitor5" layoutX="244.0" layoutY="78.0" source="Capacitor.fxml" translateX="-2985.0" translateY="-189.0" visible="false" />
                     </children>
                 </HBox>
 
                 <HBox fx:id="inductorControl" layoutX="-276.0" layoutY="78.0">
                     <children>
-                        <fx:include fx:id="inductor1" layoutX="-276.0" layoutY="78.0" source="Inductor.fxml"
-                                    translateX="243.0" translateY="-189.0" visible="false"/>
-                        <fx:include fx:id="inductor2" layoutX="-146.0" layoutY="78.0" source="Inductor.fxml"
-                                    translateX="-564.0" translateY="-189.0" visible="false"/>
-                        <fx:include fx:id="inductor3" layoutX="-16.0" layoutY="78.0" source="Inductor.fxml"
-                                    translateX="-1371.0" translateY="-189.0" visible="false"/>
-                        <fx:include fx:id="inductor4" layoutX="114.0" layoutY="78.0" source="Inductor.fxml"
-                                    translateX="-2178.0" translateY="-189.0" visible="false"/>
-                        <fx:include fx:id="inductor5" layoutX="244.0" layoutY="78.0" source="Inductor.fxml"
-                                    translateX="-2985.0" translateY="-189.0" visible="false"/>
+                        <fx:include fx:id="inductor1" layoutX="-276.0" layoutY="78.0" source="Inductor.fxml" translateX="243.0" translateY="-189.0" visible="false" />
+                        <fx:include fx:id="inductor2" layoutX="-146.0" layoutY="78.0" source="Inductor.fxml" translateX="-564.0" translateY="-189.0" visible="false" />
+                        <fx:include fx:id="inductor3" layoutX="-16.0" layoutY="78.0" source="Inductor.fxml" translateX="-1371.0" translateY="-189.0" visible="false" />
+                        <fx:include fx:id="inductor4" layoutX="114.0" layoutY="78.0" source="Inductor.fxml" translateX="-2178.0" translateY="-189.0" visible="false" />
+                        <fx:include fx:id="inductor5" layoutX="244.0" layoutY="78.0" source="Inductor.fxml" translateX="-2985.0" translateY="-189.0" visible="false" />
 
                     </children>
                 </HBox>
 
                 <HBox fx:id="lineEndControl" layoutX="-276.0" layoutY="78.0">
                     <children>
-                        <Line fx:id="setOnCount1" endX="125.0" rotate="90.0" strokeWidth="2.2" translateX="527.0"
-                              translateY="115.5" visible="false"/>
-                        <Line fx:id="setOnCount2" endX="125.0" rotate="90.0" strokeWidth="2.2" translateX="527.0"
-                              translateY="115.5" visible="false"/>
-                        <Line fx:id="setOnCount3" endX="125.0" rotate="90.0" strokeWidth="2.2" translateX="530.0"
-                              translateY="115.5" visible="false"/>
-                        <Line fx:id="setOnCount4" endX="125.0" rotate="90.0" strokeWidth="2.2" translateX="533.0"
-                              translateY="115.5" visible="false"/>
-                        <Line fx:id="setOnCount5" endX="125.0" rotate="90.0" strokeWidth="2.2" translateX="534.0"
-                              translateY="115.5" visible="false"/>
+                        <Line fx:id="setOnCount1" endX="125.0" rotate="90.0" strokeWidth="2.2" translateX="527.0" translateY="115.5" visible="false" />
+                        <Line fx:id="setOnCount2" endX="125.0" rotate="90.0" strokeWidth="2.2" translateX="527.0" translateY="115.5" visible="false" />
+                        <Line fx:id="setOnCount3" endX="125.0" rotate="90.0" strokeWidth="2.2" translateX="530.0" translateY="115.5" visible="false" />
+                        <Line fx:id="setOnCount4" endX="125.0" rotate="90.0" strokeWidth="2.2" translateX="533.0" translateY="115.5" visible="false" />
+                        <Line fx:id="setOnCount5" endX="125.0" rotate="90.0" strokeWidth="2.2" translateX="534.0" translateY="115.5" visible="false" />
 
                     </children>
                 </HBox>
@@ -105,8 +92,8 @@
             </children>
         </Group>
 
-        <Button fx:id="btnBack" layoutX="50.0" layoutY="25.0" mnemonicParsing="false" onMouseClicked="#handleBackClick"
-                text="Back"/>
+        <Button fx:id="btnBack" layoutX="50.0" layoutY="25.0" mnemonicParsing="false" onMouseClicked="#handleBackClick" text="Back" />
+        <Button fx:id="btnHome" layoutX="118.0" layoutY="25.0" mnemonicParsing="false" onMouseClicked="#handleHomeClick" text="New Circuit" />
 
         <TableView fx:id="componentTable" layoutX="50.0" layoutY="350.0" prefHeight="200.0" prefWidth="840.0" style="-fx-fixed-cell-size: 31px;">
             <columns>

@@ -19,7 +19,7 @@ import models.CircuitComponent;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CircuitController {
+public abstract class CircuitController {
 
     @FXML
     private TextField dcVoltage;
