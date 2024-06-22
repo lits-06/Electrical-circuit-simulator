@@ -15,6 +15,8 @@ import models.CircuitComponent;
 
 import java.util.List;
 
+import controller.parallel.ParallelController;
+
 public abstract class CircuitResultController {
     @FXML
     private HBox resistorControl;
@@ -77,7 +79,10 @@ public abstract class CircuitResultController {
     private int capacitorCount;
     private int inductorCount;
     private List<CircuitComponent> components;
+    private String sourceType;
     private CircuitComponent source;
+
+    private CircuitState previousState;
 
     public TableView<CircuitComponent> getComponentTable() {
         return componentTable;
@@ -97,6 +102,14 @@ public abstract class CircuitResultController {
 
     public int getCapacitorCount() {
         return capacitorCount;
+    }
+
+    public String getSourceType() {
+        return sourceType;
+    }
+
+    public CircuitState getPreviousState() {
+        return previousState;
     }
 
     public void setupComponentTable() {
@@ -122,13 +135,26 @@ public abstract class CircuitResultController {
         this.inductorCount = counts[2];
     }
 
+    public void setPreviousState(CircuitState previousState) {
+        this.previousState = previousState;
+    }
+
     @FXML
-    private void handleBackClick() throws Exception {
-//        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Home.fxml"));
-//        Parent newRoot = loader.load();
-//
-//        Scene currentScene = btnBack.getScene();
-//        currentScene.setRoot(newRoot);
+    public void handleBackClick(String fxmlPath, CircuitResultController currentCircuit) throws Exception {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+        Parent newRoot = loader.load();
+
+        CircuitController controller = loader.getController();
+
+        CircuitState previousState = currentCircuit.getPreviousState();
+        controller.setSourceType(previousState.getSourceType());
+        controller.setSource(previousState.getSource());
+        controller.setComponents(previousState.getComponents());
+
+        controller.updateUI();
+
+        Scene currentScene = btnBack.getScene();
+        currentScene.setRoot(newRoot);
     }
 
     @FXML
