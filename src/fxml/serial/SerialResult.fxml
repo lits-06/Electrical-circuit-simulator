@@ -19,7 +19,18 @@
         </Text>
         <Group fx:id="circuit" layoutY="40.0">
             <children>
-                <fx:include source="../PowerSource.fxml"/>
+                <HBox fx:id="ACController" prefHeight="100.0" prefWidth="200.0" visible="false">
+                    <children>
+                        <fx:include fx:id="ACSource" source="../ACPowerSource.fxml" />
+                    </children>
+                </HBox>
+
+                <HBox fx:id="DCController" prefHeight="100.0" prefWidth="200.0" visible="false">
+                    <children>
+                        <fx:include fx:id="DCSource" source="../DCPowerSource.fxml"/>
+                    </children>
+                </HBox>
+
                 <HBox fx:id="resistorControl" layoutX="-276.0" layoutY="78.0" maxHeight="-Infinity" maxWidth="-Infinity"
                       minHeight="-Infinity" minWidth="-Infinity" prefHeight="648.0" prefWidth="936.0">
                     <children>

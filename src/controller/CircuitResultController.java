@@ -50,6 +50,12 @@ public class CircuitResultController {
     private HBox lineEndControl;
 
     @FXML
+    private HBox ACController;
+
+    @FXML
+    private HBox DCController;
+
+    @FXML
     private TableView<CircuitComponent> componentTable;
 
     @FXML
@@ -165,6 +171,7 @@ public class CircuitResultController {
                 Label voltageLabel = new Label(source.getValue() + " " + source.getUnit());
                 voltageLabel.setStyle("-fx-font-family: 'Arial Rounded MT Bold'; -fx-font-size: 20px;");
                 componentPowerSource.getChildren().addAll(voltageLabel);
+                DCController.setVisible(true);
             }
             case "acSource" -> {
                 Label voltageLabel = new Label(source.getValue() + " " + source.getUnit());
@@ -172,6 +179,7 @@ public class CircuitResultController {
                 voltageLabel.setStyle("-fx-font-family: 'Arial Rounded MT Bold'; -fx-font-size: 20px;");
                 frequencyLabel.setStyle("-fx-font-family: 'Arial Rounded MT Bold'; -fx-font-size: 20px;");
                 componentPowerSource.getChildren().addAll(voltageLabel, frequencyLabel);
+                ACController.setVisible(true);
             }
         }
     }
