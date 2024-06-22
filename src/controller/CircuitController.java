@@ -71,6 +71,10 @@ public abstract class CircuitController {
         return components;
     }
 
+    public String getSourceType() {
+        return sourceType.getValue();
+    }
+
     public CircuitComponent getSource() {
         return source;
     }
@@ -89,6 +93,24 @@ public abstract class CircuitController {
         counts[1] = capacitorCount;
         counts[2] = inductorCount;
         return counts;
+    }
+
+    public void setSourceType(String type) {
+        sourceType.setValue(type);
+    }
+
+    public void setSource(CircuitComponent source) {
+        this.source = source;
+    }
+
+    public void setComponents(List<CircuitComponent> components) {
+        this.components = components;
+    }
+
+    public void setComponentCounts(int[] counts) {
+        this.resistorCount = counts[0];
+        this.capacitorCount = counts[1];
+        this.inductorCount = counts[2];
     }
 
     @FXML
@@ -128,19 +150,19 @@ public abstract class CircuitController {
     @FXML
     private void addResistor() {
         resistorCount++;
-        addElement("Resistor", "R" + resistorCount, "Ω");
+        addElement("Resistor", "R", "Ω");
     }
 
     @FXML
     private void addCapacitor() {
         capacitorCount++;
-        addElement("Capacitor", "C" + capacitorCount, "µF");
+        addElement("Capacitor", "C", "µF");
     }
 
     @FXML
     private void addInductor() {
         inductorCount++;
-        addElement("Inductor", "L" + inductorCount, "µH");
+        addElement("Inductor", "L", "µH");
     }
 
     private void addElement(String elementType, String elementName, String elementUnit) {
@@ -165,6 +187,7 @@ public abstract class CircuitController {
         Label nameLabel = new Label(elementName);
         TextField parameterField = new TextField();
         Label itemUnit = new Label(elementUnit);
+        Button deleteButton = new Button("X");
 
         CircuitComponent component = new CircuitComponent(elementType, elementName, elementUnit, "");
         components.add(component);
@@ -173,7 +196,17 @@ public abstract class CircuitController {
             component.setValue(newValue);
         });
 
-        newElement.getChildren().addAll(nameLabel, parameterField, itemUnit);
+        deleteButton.setOnAction(event -> {
+            elementContainer.getChildren().remove(newElement);
+            components.remove(component);
+            switch (elementType) {
+                case "Resistor" -> resistorCount--;
+                case "Capacitor" -> capacitorCount--;
+                case "Inductor" -> inductorCount--;
+            }
+        });
+
+        newElement.getChildren().addAll(nameLabel, parameterField, itemUnit, deleteButton);
         elementContainer.getChildren().add(newElement);
     }
 
@@ -264,5 +297,48 @@ public abstract class CircuitController {
 
         errorMessageBox.getChildren().addAll(errorMessageLabel);
         elementContainer.getChildren().add(errorMessageBox);
+    }
+
+    public void updateUI() {
+        handleSourceChange();
+
+        if ("DC".equals(sourceType.getValue())) {
+            dcVoltage.setText(source.getValue());
+        } else if ("AC".equals(sourceType.getValue())) {
+            acVoltage.setText(source.getValue());
+            acFrequency.setText(source.getValue2());
+        }
+
+        resistorCount = 0;
+        capacitorCount = 0;
+        inductorCount = 0;
+        elementContainer.getChildren().removeIf(node -> node instanceof HBox);
+        for (CircuitComponent component : components) {
+            switch (component.getType()) {
+                case "Resistor" -> resistorCount++;
+                case "Capacitor" -> capacitorCount++;
+                case "Inductor" -> inductorCount++;
+            }
+
+            HBox newElement = new HBox(10);
+            Label nameLabel = new Label(component.getName());
+            TextField parameterField = new TextField(component.getValue());
+            Label itemUnit = new Label(component.getUnit());
+            Button deleteButton = new Button("X");
+
+            deleteButton.setOnAction(event -> {
+                elementContainer.getChildren().remove(newElement);
+                components.remove(component);
+                switch (component.getType()) {
+                    case "Resistor" -> resistorCount--;
+                    case "Capacitor" -> capacitorCount--;
+                    case "Inductor" -> inductorCount--;
+                }
+            });
+
+            newElement.getChildren().addAll(nameLabel, parameterField, itemUnit, deleteButton);
+            elementContainer.getChildren().add(newElement);
+        }
+
     }
 }

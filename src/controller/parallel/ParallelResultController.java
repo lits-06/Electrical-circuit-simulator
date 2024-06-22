@@ -1,11 +1,20 @@
 package controller.parallel;
 
+import java.util.List;
+
 import controller.CircuitResultController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
 import models.CircuitComponent;
 
 public class ParallelResultController extends CircuitResultController {
+
+    @FXML
+    private void handleBackClick() throws Exception {
+        super.handleBackClick("/fxml/parallel/Parallel.fxml", this);
+    }
+
     public void calculateComponentValues() {
         double voltageSource = Double.parseDouble(super.getSource().getValue());
 

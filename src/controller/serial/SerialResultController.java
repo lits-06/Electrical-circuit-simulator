@@ -3,9 +3,16 @@ package controller.serial;
 import controller.CircuitResultController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
 import models.CircuitComponent;
 
 public class SerialResultController extends CircuitResultController {
+
+    @FXML
+    private void handleBackClick() throws Exception {
+        super.handleBackClick("/fxml/serial/Serial.fxml", this);
+    }
+
     public void updateComponentVisibility() {
         super.updateComponentVisibility();
         getLineEndControl().getChildren().get(getComponents().size() - 1).setVisible(true);

@@ -1,6 +1,7 @@
 package controller.parallel;
 
 import controller.CircuitController;
+import controller.CircuitState;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -28,6 +29,8 @@ public class ParallelController extends CircuitController {
             controller.setComponentCounts(getComponentCounts());
 
             controller.displayComponentValues();
+
+            controller.setPreviousState(new CircuitState(getSourceType(), getSource(), getComponents()));
 
             Scene currentScene = getBtnSubmit().getScene();
             currentScene.setRoot(newRoot);
