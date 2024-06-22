@@ -15,7 +15,7 @@ import models.CircuitComponent;
 
 import java.util.List;
 
-public class CircuitResultController {
+public abstract class CircuitResultController {
     @FXML
     private HBox resistorControl;
 
@@ -27,6 +27,9 @@ public class CircuitResultController {
 
     @FXML
     private Button btnBack;
+
+    @FXML
+    private Button btnHome;
 
     @FXML
     private VBox componentPowerSource;
@@ -121,10 +124,19 @@ public class CircuitResultController {
 
     @FXML
     private void handleBackClick() throws Exception {
+//        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Home.fxml"));
+//        Parent newRoot = loader.load();
+//
+//        Scene currentScene = btnBack.getScene();
+//        currentScene.setRoot(newRoot);
+    }
+
+    @FXML
+    private void handleHomeClick() throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Home.fxml"));
         Parent newRoot = loader.load();
 
-        Scene currentScene = btnBack.getScene();
+        Scene currentScene = btnHome.getScene();
         currentScene.setRoot(newRoot);
     }
 
