@@ -149,39 +149,34 @@ public abstract class CircuitController {
 
     @FXML
     private void addResistor() {
-        resistorCount++;
-        addElement("Resistor", "R", "Ω");
+        if (addElement("Resistor", "R", "Ω"))
+            resistorCount++;
     }
 
     @FXML
     private void addCapacitor() {
-        capacitorCount++;
-        addElement("Capacitor", "C", "µF");
+        if (addElement("Capacitor", "C", "µF"))
+            capacitorCount++;
     }
 
     @FXML
     private void addInductor() {
-        inductorCount++;
-        addElement("Inductor", "L", "µH");
+        if (addElement("Inductor", "L", "µH"))
+            inductorCount++;
     }
 
-    private void addElement(String elementType, String elementName, String elementUnit) {
-        if (resistorCount + capacitorCount + inductorCount > MAX_ELEMENTS) {
+    private boolean addElement(String elementType, String elementName, String elementUnit) {
+        if (resistorCount + capacitorCount + inductorCount >= MAX_ELEMENTS) {
             if (!alertMaxElementsShown) {
-                HBox newElement = new HBox(10);
-                Label nameLabel = new Label("Cannot add more than " + MAX_ELEMENTS + " elements.");
-                newElement.getChildren().addAll(nameLabel);
-                elementContainer.getChildren().add(newElement);
+                showError("Cannot add more than " + MAX_ELEMENTS + " elements.");
                 alertMaxElementsShown = true;
             }
-            return;
+            return false;
         }
 
-        // Trong trường hợp người dùng bấm submit khi chưa nhập đến tối đa số phần tử,
-        // sẽ hiện thông báo lỗi, nếu sau đó người dùng thêm phần tử điện thì phải xóa
-        // thông báo này rồi mới thêm phần tử
         elementContainer.getChildren()
                 .removeIf(node -> node instanceof HBox && "error".equals(node.getUserData()));
+        alertMaxElementsShown = false;
 
         HBox newElement = new HBox(10);
         Label nameLabel = new Label(elementName);
@@ -204,10 +199,16 @@ public abstract class CircuitController {
                 case "Capacitor" -> capacitorCount--;
                 case "Inductor" -> inductorCount--;
             }
+
+            elementContainer.getChildren()
+                    .removeIf(node -> node instanceof HBox && "error".equals(node.getUserData()));
+            alertMaxElementsShown = false;
         });
 
         newElement.getChildren().addAll(nameLabel, parameterField, itemUnit, deleteButton);
         elementContainer.getChildren().add(newElement);
+
+        return true;
     }
 
     @FXML
@@ -217,6 +218,7 @@ public abstract class CircuitController {
         resistorCount = 0;
         capacitorCount = 0;
         inductorCount = 0;
+        alertMaxElementsShown = false;
     }
 
     @FXML
@@ -312,6 +314,7 @@ public abstract class CircuitController {
         resistorCount = 0;
         capacitorCount = 0;
         inductorCount = 0;
+        alertMaxElementsShown = false;
         elementContainer.getChildren().removeIf(node -> node instanceof HBox);
         for (CircuitComponent component : components) {
             switch (component.getType()) {
@@ -334,6 +337,10 @@ public abstract class CircuitController {
                     case "Capacitor" -> capacitorCount--;
                     case "Inductor" -> inductorCount--;
                 }
+
+                elementContainer.getChildren()
+                        .removeIf(node -> node instanceof HBox && "error".equals(node.getUserData()));
+                alertMaxElementsShown = false;
             });
 
             newElement.getChildren().addAll(nameLabel, parameterField, itemUnit, deleteButton);
