@@ -25,7 +25,7 @@
          <Font name="Arial Rounded MT Bold" size="30.0" />
       </font>
    </Label>
-   <Label layoutX="275.0" layoutY="194.0" text="Please select &quot;Parallel circuit&quot; or &quot;Seria circuit&quot; to start" textAlignment="CENTER">
+   <Label layoutX="275.0" layoutY="194.0" text="Please select &quot;Parallel circuit&quot; or &quot;Serial circuit&quot; to start" textAlignment="CENTER">
       <font>
          <Font name="System Bold" size="15.0" />
       </font>
